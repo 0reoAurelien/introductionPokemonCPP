@@ -1,4 +1,4 @@
-
+#pragma once
 #include "SetOfPokemon.hpp"
 #include <iostream>
 

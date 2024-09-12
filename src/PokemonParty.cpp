@@ -1,16 +1,39 @@
 #include "PokemonParty.hpp"
+#include "Pokeball.hpp"
+#include "Pokedex.hpp"
+#include <iostream>
+#include <string>
+#include <vector>
+#include  <stdexcept>
 
-PokemonParty::PokemonParty()
+
+Pokeball* linkedPokeball = nullptr;
+
+PokemonParty::PokemonParty(const std::vector <std::string> &names, Pokeball* pokeball):linkedPokeball(pokeball)
 {
+    for (const std::string &name : names){
+        if(arrayOfPokemon.size()>=6){
+            std::cout << "Team is full !" << std::endl;
+            break;
+        }
+        Pokemon* pokemon = linkedPokeball->getPokemonByName(name);
+        if (pokemon != nullptr){
+            arrayOfPokemon.push_back(pokemon);
+        }
+        else {
+            std::cout << "Couldn't find " << name << std::endl;
+        }
+    }
 }
 
-Pokemon *PokemonParty::getPokemonByIndex(int index){
-    if (index>0 && index <= maxId){
-        for (Pokemon* pokemon : arrayOfPokemon){ //On parcourt la liste des Pokémon dans la Pokeball
-            if ((arrayOfPokemon.at(index))->getId() == index){
-                Pokemon* p_out = arrayOfPokemon.at(index);
+Pokemon *PokemonParty::getPokemonById(int id){
+    if (id>0 && id <= maxId){
+        Pokemon* pokemon = nullptr;
+        for (int index = 0; index < arrayOfPokemon.size(); ++index){ //On parcourt la liste des Pokémon dans la Pokeball
+            pokemon = arrayOfPokemon.at(index);
+            if (pokemon->getId() == id){
                 arrayOfPokemon.erase(arrayOfPokemon.begin()+index);
-                return p_out;
+                return pokemon;
             }
         }
         std::cout << "You don't have such pokemon in your team !\n" << std::endl;
@@ -20,18 +43,20 @@ Pokemon *PokemonParty::getPokemonByIndex(int index){
     return nullptr;
 }
 
-
-Pokemon* PokemonParty::getPokemonByName(const string& name) {
+Pokemon *PokemonParty::getPokemonByName(const string &name)
+{
     int index = 0;
     string namecopy = stringTolower(name);
-    for (int index = 0; index < arrayOfPokemon.size(); index++){ //On parcourt la liste des Pokémon dans la Pokeball
-        if ((*arrayOfPokemon.at(index)).getName() == name){
-            Pokemon* p_out = arrayOfPokemon.at(index);
+    Pokemon* p_out = nullptr;
+    for (int index = 0; index < arrayOfPokemon.size(); ++index){ //On parcourt la liste des Pokémon dans la Pokeball
+        p_out = arrayOfPokemon.at(index);
+        if (p_out->getName() == namecopy){
             arrayOfPokemon.erase(arrayOfPokemon.begin()+index);
             return p_out;
         }
     }
     std::cout << "You don't have such pokemon in your team !\n" << std::endl;
+    return nullptr;
 }
 
 void PokemonParty::addPokemon(Pokemon* pokemon){

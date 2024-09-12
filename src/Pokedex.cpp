@@ -105,7 +105,7 @@ Pokemon *Pokedex::randomWildPokemon(){
     for (Pokemon* pokemon : arrayOfPokemon){ //On parcourt la liste des Pokémon dans la Pokeball
         if (pokemon->getId() == id){
             return pokemon;
-
         }
     }
+    return nullptr;
 }

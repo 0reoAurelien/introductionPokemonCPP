@@ -10,11 +10,12 @@ Pokeball::Pokeball()
 
 Pokemon *Pokeball::getPokemonById(int id){
     if (id>0 && id <= maxId){
+        Pokemon* p_out = nullptr;
         for (int index = 0; index < arrayOfPokemon.size(); ++index){ //On parcourt la liste des Pokémon dans la Pokeball
-            Pokemon* pokemon = arrayOfPokemon.at(index);
-            if (pokemon->getId() == id){
+            p_out = arrayOfPokemon.at(index);
+            if (p_out->getId() == id){
                 arrayOfPokemon.erase(arrayOfPokemon.begin()+index);
-                return pokemon;
+                return p_out;
             }
         }
         std::cout << "You don't have such pokemon in your pokeballs !\n" << std::endl;
@@ -28,14 +29,16 @@ Pokemon *Pokeball::getPokemonById(int id){
 Pokemon* Pokeball::getPokemonByName(const string& name) {
     int index = 0;
     string namecopy = stringTolower(name);
+    Pokemon* p_out = nullptr;
     for (int index = 0; index < arrayOfPokemon.size(); ++index){ //On parcourt la liste des Pokémon dans la Pokeball
-        if ((*arrayOfPokemon.at(index)).getName() == namecopy){
-            Pokemon* p_out = arrayOfPokemon.at(index);
+        p_out = arrayOfPokemon.at(index);
+        if (p_out->getName() == namecopy){
             arrayOfPokemon.erase(arrayOfPokemon.begin()+index);
             return p_out;
         }
     }
     std::cout << "You don't have such pokemon in your pokeballs !\n" << std::endl;
+    return nullptr;
 }
 
 void Pokeball::addPokemon(Pokemon* pokemon)

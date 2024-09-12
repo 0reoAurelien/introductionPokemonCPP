@@ -4,6 +4,7 @@
 #include "Pokedex.hpp"
 #include "SetOfPokemon.hpp"
 #include "Pokeball.hpp"
+#include "PokemonParty.hpp"
 
 int main(){
 
@@ -48,6 +49,15 @@ int main(){
 
     randomPokemon->displayInfo();
     randomPokemon->displayName();
+
+    Pokeball* pokeball = new Pokeball();
+    vector <string> names = {"charmander", "squirtle", "mew", "ditto", "pichu", "riolu", "alakazam"};
+
+    for (string &name : names){
+        pokeball->addPokemon(pokedex->getPokemonByName(name));
+    }
+
+    PokemonParty* party = new PokemonParty(names, pokeball);
 
     //pokedex->displayList();
 
