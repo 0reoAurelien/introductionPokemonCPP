@@ -11,6 +11,7 @@ using std::string;
 using std::vector;
 
 
+
 Pokedex::Pokedex():SetOfPokemon(){
     std::cout << "Updating your pokedex...\n" << std::endl;
     const string fileName = "../resources/pokedex.csv";
@@ -38,14 +39,18 @@ Pokedex::Pokedex():SetOfPokemon(){
         const auto& defense = std::stoi(lineData.at(7));
         const auto& generation = std::stoi(lineData.at(11));
 
-        Pokemon* debugPoke = new Pokemon(id, name, hitpoints, attack, defense, generation);
-        arrayOfPokemon.push_back(debugPoke);
+        Pokemon* newPokemon = new Pokemon(id, name, hitpoints, attack, defense, generation);
+        arrayOfPokemon.push_back(newPokemon);
+        maxId = (maxId < newPokemon->getId())? newPokemon->getId() : maxId;
+
 
         //debugPoke -> displayInfo();
         
     }
     
     std::cout << "\nYour pokedex was successfully updated !\n" << std::endl;
+    std::cout << "L'identifiant maximal est " << maxId << std::endl;
+
     db.close(); // Ferme le fichier
 }
 
@@ -60,11 +65,19 @@ Pokedex* Pokedex::getInstance() {
 
 
 Pokemon* Pokedex::getPokemonById(int index) {
-    if (index>=0 && index < arrayOfPokemon.size()){
-        Pokemon* p = new Pokemon(*arrayOfPokemon.at(index));
-        return p;
+    if (index>0 && index <= maxId){
+        for (Pokemon* pokemon : arrayOfPokemon){ //On parcourt la liste des Pokémon dans la Pokeball
+            if ((arrayOfPokemon.at(index))->getId() == index){
+                Pokemon* p = new Pokemon(*arrayOfPokemon.at(index));
+                delete arrayOfPokemon.at(index); 
+                return p;
+            }
+        }
+        std::cout << "You haven't caught this pokemon yet.\n" << std::endl;
+        return nullptr;
     }
-    std::cout << "Are you on drugs ? This pokemon doesn't exist !" << std::endl; 
+    std::cout << "Are you on drugs ? This pokemon doesn't exist !\n" << std::endl;
+    return nullptr;
 }
 
 Pokemon* Pokedex::getPokemonByName(string& name) {
@@ -77,6 +90,12 @@ Pokemon* Pokedex::getPokemonByName(string& name) {
         }
     }
     std::cout << "Are you on drugs ? This pokemon doesn't exist !" << std::endl;
+    return nullptr;
 }
 
-Pokedex::~Pokedex(){}
+Pokedex::~Pokedex(){
+    std::cout << "Closing the pokedex..." << std::endl;
+    for (Pokemon* pokemon : arrayOfPokemon){
+        delete pokemon;
+    }
+}

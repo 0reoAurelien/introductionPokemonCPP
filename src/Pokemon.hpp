@@ -20,13 +20,13 @@ class Pokemon{
     Pokemon(int id, const string &name, int hitpoint, double attack, double defense, int gen);
     Pokemon(const Pokemon &anotherPokemon);
 
+    string getName() const;
+    int getId() const;
     int getATK() const;
     int getDEF() const;
     int getHP() const;
-    string getName() const;
     void setHP(int newHP);
     void dealDmg(Pokemon &anotherPokemon);
     void displayInfo();
-
     ~Pokemon();
 };

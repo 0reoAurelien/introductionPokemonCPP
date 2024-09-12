@@ -3,12 +3,16 @@
 #include <vector>
 #include "SetOfPokemon.hpp"
 
+#include <string>
+
+using std::string;
 using std::vector;
 
+int SetOfPokemon::maxId = 0;
 
 void SetOfPokemon::displayList(){
 
-    std::cout << "***\n" << std::endl;
+    std::cout << "***** Pokedex *****\n" << std::endl;
 
     for (Pokemon* pokemon : arrayOfPokemon) {
         std::cout << "There are pokemons in the arrayOfPokemon" << std::endl;
@@ -16,3 +20,13 @@ void SetOfPokemon::displayList(){
         std::cout << "You just saw one of them.\n" << std::endl;
     }
 }
+
+
+string SetOfPokemon::stringTolower(const string& str) 
+{   
+    string newstr = str;
+    for(int i = 0; str[i]; i++){
+        newstr[i] = tolower(str[i]);
+    }
+    return newstr;
+} 

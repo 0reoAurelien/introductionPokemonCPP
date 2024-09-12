@@ -12,14 +12,10 @@ private:
     Pokedex(const Pokedex&) = delete;
     Pokedex& operator=(const Pokedex&) = delete;
     static Pokedex* pokedex;
-    
-    Pokemon* getPokemonByName(string& name);
-    Pokemon* getPokemonById(int id);
 
 public:
     static Pokedex * getInstance();
+    Pokemon* getPokemonByName(string& name);
+    Pokemon* getPokemonById(int id);
     ~Pokedex();
-
-
-    // Initialisation du pointeur statique à nullptr
 };

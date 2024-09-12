@@ -17,7 +17,16 @@ name(name), id(id), hitpoint(hitpoint), attack(attack), defense(defense), gen(ge
 
 Pokemon::Pokemon(const Pokemon &anotherPokemon):
 name(anotherPokemon.name), id(anotherPokemon.id), hitpoint(anotherPokemon.hitpoint), attack(anotherPokemon.attack), defense(anotherPokemon.defense), gen(anotherPokemon.gen) {
-    std::cout << name << " is a copy of " << anotherPokemon.name << std::endl;
+    std::cout << "A new " << name << " was created !\n" << std::endl;
+}
+
+
+string Pokemon::getName() const{
+    return name;
+}
+
+int Pokemon::getId() const{
+    return id;
 }
 
 int Pokemon::getATK() const{
@@ -36,9 +45,6 @@ void Pokemon::setHP(int newHP){
     hitpoint = newHP;
 }
 
-string Pokemon::getName() const{
-    return name;
-}
 
 void Pokemon::dealDmg(Pokemon &anotherPokemon){
     if (getHP() == 0){
