@@ -23,6 +23,7 @@ class Pokemon{
     int getATK() const;
     int getDEF() const;
     int getHP() const;
+    string getName() const;
     void setHP(int newHP);
     void dealDmg(Pokemon &anotherPokemon);
     void displayInfo();

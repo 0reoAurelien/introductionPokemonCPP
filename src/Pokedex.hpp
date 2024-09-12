@@ -13,7 +13,7 @@ private:
     Pokedex& operator=(const Pokedex&) = delete;
     static Pokedex* pokedex;
     
-    Pokemon* getPokemonByName(string name);
+    Pokemon* getPokemonByName(string& name);
     Pokemon* getPokemonById(int id);
 
 public:

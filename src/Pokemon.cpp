@@ -36,6 +36,10 @@ void Pokemon::setHP(int newHP){
     hitpoint = newHP;
 }
 
+string Pokemon::getName() const{
+    return name;
+}
+
 void Pokemon::dealDmg(Pokemon &anotherPokemon){
     if (getHP() == 0){
         std::cout << name << " couldn't move because he is fucking dead !\n" << std::endl;
@@ -72,12 +76,11 @@ void Pokemon::displayInfo(){
     std::cout << "Attack: " << getATK() << std::endl;
     std::cout << "Defense: " << getDEF() << std::endl;
     std::cout << "Generation: " << gen << std::endl;
-    std::cout << "\n\n" << gen << std::endl;
+    std::cout << "\n" << std::endl;
 }
 
 Pokemon::~Pokemon(){
     count--;
     std::cout << "Destruction of " << name << std::endl;
     std::cout << "There are now " << count << " pokemons still fighting.\n" << std::endl;
-    
 }

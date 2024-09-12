@@ -59,12 +59,24 @@ Pokedex* Pokedex::getInstance() {
 }
 
 
-Pokemon* Pokedex::getPokemonByName(string name) /*override*/ {
-    return nullptr;
+Pokemon* Pokedex::getPokemonById(int index) {
+    if (index>=0 && index < arrayOfPokemon.size()){
+        Pokemon* p = new Pokemon(*arrayOfPokemon.at(index));
+        return p;
+    }
+    std::cout << "Are you on drugs ? This pokemon doesn't exist !" << std::endl; 
 }
 
-Pokemon* Pokedex::getPokemonById(int id){
-    return nullptr;
-};
+Pokemon* Pokedex::getPokemonByName(string& name) {
+    int index = 0;
+    for (int index = 0; index < arrayOfPokemon.size(); index++){ //On parcourt la liste des Pokémon dans la Pokeball
+        if ((*arrayOfPokemon.at(index)).getName() == name){
+            Pokemon* p = new Pokemon(*arrayOfPokemon.at(index));
+            delete arrayOfPokemon.at(index); 
+            return p;
+        }
+    }
+    std::cout << "Are you on drugs ? This pokemon doesn't exist !" << std::endl;
+}
 
 Pokedex::~Pokedex(){}
