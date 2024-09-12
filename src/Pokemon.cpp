@@ -75,9 +75,13 @@ void Pokemon::dealDmg(Pokemon &anotherPokemon){
     }
 }
 
+void Pokemon::displayName(){
+    std::cout << getName() << std::endl;
+}
+
 void Pokemon::displayInfo(){
-    std::cout << "Name: " << name << std::endl;
-    std::cout << "ID: " << id << std::endl;
+    std::cout << "Name: " << getName() << std::endl;
+    std::cout << "ID: " << getId() << std::endl;
     std::cout << "HP: " << getHP() << std::endl;
     std::cout << "Attack: " << getATK() << std::endl;
     std::cout << "Defense: " << getDEF() << std::endl;
@@ -88,5 +92,17 @@ void Pokemon::displayInfo(){
 Pokemon::~Pokemon(){
     count--;
     std::cout << "Destruction of " << name << std::endl;
-    std::cout << "There are now " << count << " pokemons still fighting.\n" << std::endl;
+    switch (count) {
+        case 1 :
+            std::cout << "There is now 1 pokemon in the universe.\n" << std::endl;
+            break;
+
+        case 0 :
+            std::cout << "The universe is empty !\n" << std::endl;
+            break;
+
+
+        default :
+            std::cout << "There are now " << count << " pokemons in the universe.\n" << std::endl;
+    }
 }

@@ -1,17 +1,20 @@
 #include "Pokeball.hpp"
 #include  <stdexcept>
 
+#include "Pokedex.hpp"
+#include "PokemonParty.hpp"
+
 Pokeball::Pokeball()
 {
 }
 
-Pokemon *Pokeball::getPokemonByIndex(int index){
-    if (index>0 && index <= maxId){
-        for (Pokemon* pokemon : arrayOfPokemon){ //On parcourt la liste des Pokémon dans la Pokeball
-            if ((arrayOfPokemon.at(index))->getId() == index){
-                Pokemon* p_out = arrayOfPokemon.at(index);
+Pokemon *Pokeball::getPokemonById(int id){
+    if (id>0 && id <= maxId){
+        for (int index = 0; index < arrayOfPokemon.size(); ++index){ //On parcourt la liste des Pokémon dans la Pokeball
+            Pokemon* pokemon = arrayOfPokemon.at(index);
+            if (pokemon->getId() == id){
                 arrayOfPokemon.erase(arrayOfPokemon.begin()+index);
-                return p_out;
+                return pokemon;
             }
         }
         std::cout << "You don't have such pokemon in your pokeballs !\n" << std::endl;
@@ -25,8 +28,8 @@ Pokemon *Pokeball::getPokemonByIndex(int index){
 Pokemon* Pokeball::getPokemonByName(const string& name) {
     int index = 0;
     string namecopy = stringTolower(name);
-    for (int index = 0; index < arrayOfPokemon.size(); index++){ //On parcourt la liste des Pokémon dans la Pokeball
-        if ((*arrayOfPokemon.at(index)).getName() == name){
+    for (int index = 0; index < arrayOfPokemon.size(); ++index){ //On parcourt la liste des Pokémon dans la Pokeball
+        if ((*arrayOfPokemon.at(index)).getName() == namecopy){
             Pokemon* p_out = arrayOfPokemon.at(index);
             arrayOfPokemon.erase(arrayOfPokemon.begin()+index);
             return p_out;
@@ -35,20 +38,9 @@ Pokemon* Pokeball::getPokemonByName(const string& name) {
     std::cout << "You don't have such pokemon in your pokeballs !\n" << std::endl;
 }
 
-void Pokeball::addPokemonByIndexFromPokedex(int index)
+void Pokeball::addPokemon(Pokemon* pokemon)
 {
-}
-
-void Pokeball::addPokemonByNameFromPokedex(const string &name)
-{
-}
-
-void Pokeball::addPokemonByIndexFromPokeball(int index)
-{
-}
-
-void Pokeball::addPokemonByNameFromPokeball(const string &name)
-{
+    arrayOfPokemon.push_back(pokemon);
 }
 
 Pokeball::~Pokeball(){

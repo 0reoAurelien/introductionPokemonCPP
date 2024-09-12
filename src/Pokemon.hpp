@@ -27,6 +27,7 @@ class Pokemon{
     int getHP() const;
     void setHP(int newHP);
     void dealDmg(Pokemon &anotherPokemon);
+    void displayName();
     void displayInfo();
     ~Pokemon();
 };
