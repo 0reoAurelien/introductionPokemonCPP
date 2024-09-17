@@ -24,6 +24,7 @@ public:
     int use(Pokemon* Pokemon); //a switch case defines the use of each item
     // and the method returns 1 if it resulted in the capture of the pokemon
     string getName() const;
+    int getId() const;
     void displayItem();
     void showInfo(); //should be defined for each item, but Ill see that later
 

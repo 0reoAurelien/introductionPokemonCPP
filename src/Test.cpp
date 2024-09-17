@@ -5,6 +5,9 @@
 #include "SetOfPokemon.hpp"
 #include "Pokeball.hpp"
 #include "PokemonParty.hpp"
+#include "Item.hpp"
+#include "Inventory.hpp"
+#include "Player.hpp"
 
 int main(){
 
@@ -15,12 +18,12 @@ int main(){
 
     Pokedex* pokedex = Pokedex::getInstance();
 
-    /*
+    
     // Having fun with pokemon methods :
-
-    Pokemon bulbasaur(1, "Bulbasaur", 45, 49, 49, 1);
-    Pokemon charmander(4, "Charmander", 39, 52, 43, 1);
-    Pokemon squirtle(1, "Squirtle", 44, 48, 65, 1);
+/*
+    Pokemon bulbasaur(1, "Bulbasaur", 45, 49, 49, 20, 1, 0);
+    Pokemon charmander(4, "Charmander", 39, 52, 43, 20, 1, 0);
+    Pokemon squirtle(1, "Squirtle", 44, 48, 65, 20, 1, 0);
 
     std::cout << "\n\n" << std::endl;
 
@@ -40,24 +43,47 @@ int main(){
     Pokemon* ghost = pokedex->getPokemonByName("hAuNTer");
 
 
-    int RNG = 1+rand()%721;
-    std::cout << "The random number is " << RNG << std::endl;
+    //int RNG = 1+rand()%721;
+    //std::cout << "The random number is " << RNG << std::endl;
     //Pokemon* randomPokemon = pokedex->getPokemonById(RNG);
-    */
+    
 
     Pokemon* randomPokemon = pokedex->randomWildPokemon();
 
     randomPokemon->displayInfo();
     randomPokemon->displayName();
+*/
 
     Pokemon* pkmn1 = pokedex->randomWildPokemon();
     Pokemon* pkmn2 = pokedex->randomWildPokemon();
-    Pokemon* pkmn3 = pokedex->randomWildPokemon();
 
-    vector <Pokemon*> pokemonList = {pkmn1, pkmn2, pkmn3};
+    vector <Pokemon*> pokemonList = {pkmn1, pkmn2};
 
     PokemonParty* party = new PokemonParty(pokemonList);
 
+
+    Pokemon* testPKMN = pokedex->getPokemonByName("moltres");
+    Pokemon* testPKMN2 = pokedex->getPokemonByName("rayquaza");
+    Pokemon* testPKMN3 = pokedex->getPokemonByName("rayquaza");
+
+    party->addPokemon(testPKMN);
+    party->addPokemon(testPKMN2);
+    party->addPokemon(testPKMN3);
+
+    Pokeball* PC = new Pokeball();
+
+    PC->addPokemon(party->getPokemonByName("moltres"));
+    PC->addPokemon(party->getPokemonByName("arceus"));
+    PC->addPokemon(party->getPokemonByName("rayquaza"));
+
+    testPKMN->displayInfo();
+
+    party->displayList();
+
+    party->displayListDetails();
+
+
+    
     //pokedex->displayList();
 
 
@@ -65,7 +91,5 @@ int main(){
     //delete pokeball;
     //delete pokedex;
 
-    Pokemon* testPKMN = pokedex->getPokemonByName("moltres");
-    testPKMN->displayInfo();
     return 0;
 }

@@ -8,7 +8,7 @@
 #include <fstream>
 #include <sstream>
 
-#define SHINY_ODDS 300
+#define SHINY_ODDS 800
 
 using std::string;
 using std::vector;
@@ -16,6 +16,7 @@ using std::vector;
 
 
 Pokedex::Pokedex():SetOfPokemon(){
+    title = "POKEDEX";
     srand(time(NULL));
     std::cout << "Updating your pokedex...\n" << std::endl;
     const string fileName = "../resources/pokedex.csv";
@@ -71,7 +72,7 @@ Pokedex* Pokedex::getInstance() {
 
 
 Pokemon* Pokedex::getPokemonById(const int id) {
-    int isShiny = (SHINY_ODDS < rand()%8192);
+    int isShiny = (SHINY_ODDS > rand()%8192);
     if (id>0 && id <= maxId){
         for (Pokemon* pokemon : arrayOfPokemon){ //On parcourt la liste des Pokémon dans la Pokeball
             if (pokemon->getId() == id){
@@ -86,7 +87,7 @@ Pokemon* Pokedex::getPokemonById(const int id) {
 
 
 Pokemon* Pokedex::getPokemonByName(const string& name) {
-    int isShiny = (SHINY_ODDS < rand()%8192);
+    int isShiny = (SHINY_ODDS > rand()%8192);
     string namecopy = stringTolower(name);
     for (Pokemon* pokemon : arrayOfPokemon){ //On parcourt la liste des Pokémon dans la Pokeball
         if (pokemon->getName() == namecopy){

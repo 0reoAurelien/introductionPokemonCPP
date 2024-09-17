@@ -1,7 +1,8 @@
 #include "Game.hpp"
 
+
 Game::Game():
-state(0), username(""), pokedex(Pokedex::getInstance()), playerLevel(0){
+state(0), pokedex(Pokedex::getInstance()), playerLevel(0){
 
     Pokemon * starterPokemon = nullptr;
 

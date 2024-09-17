@@ -12,9 +12,11 @@ class Player {
 public :
     Player(const string &name);
     string username;
-    PokemonParty pokemonParty;
-    Pokeball pokeball;
-    Inventory inventory;
+    PokemonParty* pokemonParty;
+    Pokeball* pokeball;
+    Inventory* inventory;
+
+    int useItem(Item* item);
 
     ~Player();
 };

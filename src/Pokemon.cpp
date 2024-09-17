@@ -16,7 +16,7 @@ name(name), id(id), hitpoint(hitpoint), attack(attack), defense(defense), speed(
     }
 
 Pokemon::Pokemon(const Pokemon &anotherPokemon, int isShiny):
-name(anotherPokemon.name), id(anotherPokemon.id), hitpoint(anotherPokemon.hitpoint), attack(anotherPokemon.attack), defense(anotherPokemon.defense), gen(anotherPokemon.gen), shiny(isShiny) {
+name(anotherPokemon.name), id(anotherPokemon.id), hitpoint(anotherPokemon.hitpoint), attack(anotherPokemon.attack), defense(anotherPokemon.defense), gen(anotherPokemon.gen), legendary(anotherPokemon.legendary), shiny(isShiny) {
     std::cout << "A new " << name << " was created !\n" << std::endl;
 }
 
@@ -48,6 +48,11 @@ int Pokemon::getHP() const{
 int Pokemon::isLegendary() const
 {
     return legendary;
+}
+
+int Pokemon::isShiny() const
+{
+    return shiny;
 }
 
 void Pokemon::setHP(int newHP){

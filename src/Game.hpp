@@ -19,11 +19,12 @@ class Game{
     int state;
     Pokedex* pokedex = nullptr;
     int playerLevel;
-    Pokemon * starterPokemon = nullptr;
+    
 
 
     public:
     Game();
+    static Pokemon* activeEnemy;
 
     void play();
 

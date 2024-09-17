@@ -10,8 +10,6 @@ using std::string;
 using std::vector;
 
 class PokemonParty : public SetOfPokemon{
-private:
-    Pokeball linkedPokeball;
 public:
     PokemonParty(vector <Pokemon*> pokemonList);
     Pokemon* getPokemonById(int index); //Fonction pour obtenir un Pokémon par index et le retirer de l'équipe

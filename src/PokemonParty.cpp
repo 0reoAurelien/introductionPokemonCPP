@@ -16,6 +16,7 @@ Pokeball* linkedPokeball = nullptr;
 
 PokemonParty::PokemonParty(vector <Pokemon*> pokemonList)
 {
+    title = "CURRENT TEAM";
     for (Pokemon* pokemon : pokemonList){
         if(arrayOfPokemon.size() > 6){
             delete pokemon;
@@ -49,18 +50,65 @@ Pokemon *PokemonParty::getPokemonById(int id){
 
 Pokemon *PokemonParty::getPokemonByName(const string &name)
 {
-    int index = 0;
     string namecopy = stringTolower(name);
-    Pokemon* p_out = nullptr;
+    int count = 0;
+    Pokemon* matchingPokemon = nullptr;
+    vector <Pokemon*> matchingList = {};
+    vector <int> indexList = {}; 
+
     for (int index = 0; index < arrayOfPokemon.size(); ++index){ //On parcourt la liste des Pokémon dans la Pokeball
-        p_out = arrayOfPokemon.at(index);
-        if (p_out->getName() == namecopy){
-            arrayOfPokemon.erase(arrayOfPokemon.begin()+index);
-            return p_out;
+        matchingPokemon = arrayOfPokemon.at(index);
+        if (matchingPokemon->getName() == namecopy){
+            matchingList.push_back(matchingPokemon);
+            indexList.push_back(index);
+            count++;
         }
     }
-    std::cout << "You don't have such pokemon in your team !\n" << std::endl;
-    return nullptr;
+
+    Pokemon* p_out = nullptr;
+    int index = 0;
+    switch (count){
+        case 0 :{
+            std::cout << "You don't have such pokemon in your team !\n" << std::endl;
+            break;
+        }
+
+        case 1 :{
+            
+            Pokemon* p_out = matchingList.at(0);
+            index = indexList.at(0); 
+            arrayOfPokemon.erase(arrayOfPokemon.begin()+index);
+            break;
+        }
+
+        default :{
+
+            string shinyPrefix = "";
+            std::cout << "You have several " << name << ", please specify your request.\n" << std::endl;
+            
+            for (int i = 0; i < count; i++){
+                p_out = matchingList.at(i);
+                shinyPrefix = (p_out->isShiny())?"Shiny ":"";
+                std::cout << i+1 << " : " << shinyPrefix << p_out->getName() << " - " << p_out->getHP() << " HP" << std::endl;
+            }
+
+            string selectInput = "";
+            std::cin >> selectInput;
+            int specificSelection = std::stoi(selectInput) - 1;
+
+            while (!((specificSelection>=0)&&(specificSelection<count))){
+                std::cout << "The entered value is incorrect. Please try again with a correct number.\n" << std::endl;
+                std::cin >> selectInput;
+                int specificSelection = std::stoi(selectInput) - 1;
+            }
+
+            p_out = matchingList.at(specificSelection);
+            index = indexList.at(specificSelection); 
+            arrayOfPokemon.erase(arrayOfPokemon.begin()+index);
+        }
+    }
+    //std::cout << p_out->getName() << " was successfully moved.\n" << std::endl;
+    return p_out;
 }
 
 void PokemonParty::addPokemon(Pokemon* pokemon){

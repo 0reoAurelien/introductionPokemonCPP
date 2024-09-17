@@ -7,6 +7,7 @@
 
 Pokeball::Pokeball()
 {
+    title = "POKEMON PC";
 }
 
 Pokemon *Pokeball::getPokemonById(int id){

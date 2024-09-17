@@ -9,6 +9,7 @@ using std::vector;
 class SetOfPokemon {
 
 protected:
+    string title; 
     vector<Pokemon*> arrayOfPokemon;
 public:
     static int maxId;

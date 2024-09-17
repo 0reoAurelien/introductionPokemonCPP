@@ -43,3 +43,9 @@ void Inventory::displayList(){
     }
 }
 
+Inventory::~Inventory()
+{
+    for (Item* item : arrayOfItem){
+        delete item;
+    }
+}

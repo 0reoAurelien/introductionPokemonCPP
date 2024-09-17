@@ -14,6 +14,9 @@
                 "${workspaceFolder}/src/Pokedex.cpp",
                 "${workspaceFolder}/src/Pokeball.cpp",
                 "${workspaceFolder}/src/PokemonParty.cpp",
+                "${workspaceFolder}/src/Item.cpp",
+                "${workspaceFolder}/src/Inventory.cpp",
+                "${workspaceFolder}/src/Player.cpp",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],

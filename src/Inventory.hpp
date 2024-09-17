@@ -20,4 +20,6 @@ public:
     string stringTolower(const string& str);
 
     void displayList();
+
+    ~Inventory();
 };

@@ -2,11 +2,12 @@
 
 
 #define Pokeball 0
-#define Superball 0
-#define Hyperball 0
-#define OranBerry 1
-#define Potion 2
-#define Revive 3
+#define Superball 1
+#define Hyperball 2
+#define OranBerry 3
+#define Potion 4
+#define AttackPlus 5
+#define Revive 6
 
 
 
@@ -46,9 +47,28 @@ int Item::use(Pokemon* pokemon){
         case Pokeball:
             std::cout << "You throw a Pokeball !" <<std::endl;
             return pokemon->capture(30); // attempt catching with the catch rate of a pokeball
+        case Superball:
+            std::cout << "You throw a Superball !" <<std::endl;
+            return pokemon->capture(50); // attempt catching with the catch rate of a superball
+        case Hyperball:
+            std::cout << "You throw a Hyperball !" <<std::endl;
+            return pokemon->capture(70); // attempt catching with the catch rate of a hyperball
+        case Potion:
+            std::cout << "You use a Potion !" <<std::endl;
+            return pokemon->capture(30); // attempt catching with the catch rate of a pokeball
+        default:
+            break;
     }
+    return 0;
 }
 
+string Item::getName() const{
+    return name;
+}
+int Item::getId() const
+{
+    return itemId;
+}
 void Item::displayItem()
 {
     std::cout << getName() + " x" << amount << std::endl;
