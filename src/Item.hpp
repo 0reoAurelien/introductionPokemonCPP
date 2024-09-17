@@ -21,7 +21,7 @@ public:
     static int totalWeight;
     int amount;
 
-    int use(Pokemon* Pokemon); //a switch case defines the use of each item
+    vector <int> use(Pokemon* Pokemon); //a switch case defines the use of each item
     // and the method returns 1 if it resulted in the capture of the pokemon
     string getName() const;
     int getId() const;

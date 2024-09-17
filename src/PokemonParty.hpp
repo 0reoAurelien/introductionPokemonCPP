@@ -11,6 +11,7 @@ using std::vector;
 
 class PokemonParty : public SetOfPokemon{
 public:
+    PokemonParty();
     PokemonParty(vector <Pokemon*> pokemonList);
     string getTitle() override;
     Pokemon *getPokemonById(int index, int removeFromList = 1);            // Fonction pour obtenir un Pokémon par index et le retirer de l'équipe

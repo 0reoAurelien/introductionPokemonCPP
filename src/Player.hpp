@@ -13,6 +13,7 @@ public :
     Player(const string &name);
     string username;
     PokemonParty* pokemonParty;
+    PokemonParty* dyingPokemons;
     Pokeball* pokeball;
     Inventory* inventory;
 

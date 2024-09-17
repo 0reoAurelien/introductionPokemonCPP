@@ -13,6 +13,7 @@ Player::Player(const string &name): username(name)
         pokemonList.push_back(starterPokemon);
     }
     pokemonParty = new PokemonParty(pokemonList);
+    dyingPokemons = new PokemonParty();
 }
 
 

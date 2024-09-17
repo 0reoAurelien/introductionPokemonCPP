@@ -1,6 +1,15 @@
 #include "Game.hpp"
 
 
+#define Pokeball 0
+#define Superball 1
+#define Hyperball 2
+#define OranBerry 3
+#define Potion 4
+#define AttackPlus 5
+#define Revive 6
+
+
 Game::Game():
 state(0), pokedex(Pokedex::getInstance()), playerLevel(0){
 
@@ -12,7 +21,6 @@ state(0), pokedex(Pokedex::getInstance()), playerLevel(0){
     
 }
 
-
-
-
-
+Game::~Game()
+{
+}

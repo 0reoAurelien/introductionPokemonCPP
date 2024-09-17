@@ -18,7 +18,7 @@ void Inventory::addItem(int itemId){
 
 int Inventory::useItem(Item *item, Pokemon* pokemon)
 {
-    int isCaptured = item->use(pokemon);
+    int isCaptured = (item->use(pokemon))[1];
     if (!(item->amount)){
         delete item;
     }

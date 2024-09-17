@@ -4,10 +4,13 @@
 #define Pokeball 0
 #define Superball 1
 #define Hyperball 2
-#define OranBerry 3
-#define Potion 4
-#define AttackPlus 5
-#define Revive 6
+#define Pearl 3
+#define Stardust 4
+#define Nugget 5
+#define OranBerry 6
+#define Potion 7
+#define AttackPlus 8
+#define Revive 9
 
 
 
@@ -39,27 +42,36 @@ Item *Item::getInstance(int Id)
 
 
 
-int Item::use(Pokemon* pokemon){
+vector <int> Item::use(Pokemon* pokemon){
     pokemon->setHP(50 + pokemon->getHP());
     amount--;
     totalWeight--;
     switch (itemId){
         case Pokeball:
             std::cout << "You throw a Pokeball !" <<std::endl;
-            return pokemon->capture(30); // attempt catching with the catch rate of a pokeball
+            return {1, pokemon->capture(30)}; // 1 end of your turn and attempt catching with the catch rate of a pokeball
         case Superball:
             std::cout << "You throw a Superball !" <<std::endl;
-            return pokemon->capture(50); // attempt catching with the catch rate of a superball
+            return {1, pokemon->capture(50)}; // 1 end of your turn and attempt catching with the catch rate of a superball
         case Hyperball:
             std::cout << "You throw a Hyperball !" <<std::endl;
-            return pokemon->capture(70); // attempt catching with the catch rate of a hyperball
+            return {1, pokemon->capture(70)}; // 1 end of your turn and attempt catching with the catch rate of a hyperball
+        case OranBerry:
+            std::cout << "You use an Oran Berry on " << pokemon->getName() << " !" <<std::endl;
+            pokemon->setHP(pokemon->getHP()+120);
+            return {1, 0}; // 1 end of your turn and no capture
         case Potion:
-            std::cout << "You use a Potion !" <<std::endl;
-            return pokemon->capture(30); // attempt catching with the catch rate of a pokeball
+            std::cout << "You use a Potion on " << pokemon->getName() << " !" <<std::endl;
+            pokemon->setHP(pokemon->getHP()+200);
+            return {1, 0}; // 1 end of your turn and no capture
+        case Revive:
+            //bring back 1 pokemon to life (use Game::revive() static method, using a Game::dyingList)
+            std::cout << "You use a Revive on " << pokemon->getName() << " !" <<std::endl;
+            return {1, 0}; // 1 end of your turn and no capture
         default:
-            break;
+            std::cout << "This item cannot be used";
     }
-    return 0;
+    return {0, 0};
 }
 
 string Item::getName() const{

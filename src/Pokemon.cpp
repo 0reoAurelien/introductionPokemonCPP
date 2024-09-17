@@ -52,6 +52,16 @@ int Pokemon::isLegendary() const
     return legendary;
 }
 
+void Pokemon::setFree(int freeToCatch)
+{
+    taken = !freeToCatch;
+}
+
+int Pokemon::isTaken()
+{
+    return taken;
+}
+
 int Pokemon::isShiny() const
 {
     return shiny;

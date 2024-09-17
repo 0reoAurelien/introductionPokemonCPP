@@ -14,6 +14,10 @@ using std::string;
 
 Pokeball* linkedPokeball = nullptr;
 
+PokemonParty::PokemonParty()
+{
+}
+
 PokemonParty::PokemonParty(vector <Pokemon*> pokemonList)
 {
     for (Pokemon* pokemon : pokemonList){
