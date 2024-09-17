@@ -9,6 +9,7 @@
                 "-g",
                 "${file}",
                 "${workspaceFolder}/src/Pokemon.cpp",
+                "${workspaceFolder}/src/Utility.cpp",
                 "${workspaceFolder}/src/SetOfPokemon.cpp",
                 "${workspaceFolder}/src/Pokedex.cpp",
                 "${workspaceFolder}/src/Pokeball.cpp",

@@ -1,4 +1,5 @@
 #pragma once
+
 #include "SetOfPokemon.hpp"
 
 class Pokeball : public SetOfPokemon{ //HERITAGE

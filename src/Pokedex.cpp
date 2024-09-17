@@ -1,6 +1,7 @@
 
 #include "SetOfPokemon.hpp"
 #include "Pokedex.hpp"
+#include "Utility.hpp"
 
 #include <vector>
 #include <iostream>
@@ -38,9 +39,11 @@ Pokedex::Pokedex():SetOfPokemon(){
         const auto& hitpoints = std::stoi(lineData.at(5));
         const auto& attack = std::stoi(lineData.at(6));
         const auto& defense = std::stoi(lineData.at(7));
+        const auto& speed = std::stoi(lineData.at(10));
         const auto& generation = std::stoi(lineData.at(11));
+        const auto& legendary = ((stringTolower(lineData.at(12)))[0]=='t')? 1:0;
 
-        Pokemon* newPokemon = new Pokemon(id, name, hitpoints, attack, defense, generation);
+        Pokemon* newPokemon = new Pokemon(id, name, hitpoints, attack, defense, speed, generation, legendary);
         arrayOfPokemon.push_back(newPokemon);
         maxId = (maxId < newPokemon->getId())? newPokemon->getId() : maxId;
 
@@ -91,14 +94,6 @@ Pokemon* Pokedex::getPokemonByName(const string& name) {
     return nullptr;
 }
 
-Pokedex::~Pokedex(){
-    std::cout << "Closing the pokedex..." << std::endl;
-    for (Pokemon* pokemon : arrayOfPokemon){
-        delete pokemon;
-    }
-    std::cout << "Pokedex successfully closed !" << std::endl;
-}
-
 
 Pokemon *Pokedex::randomWildPokemon(){
     int id = 1+rand()%maxId;
@@ -108,4 +103,14 @@ Pokemon *Pokedex::randomWildPokemon(){
         }
     }
     return nullptr;
+}
+
+
+
+Pokedex::~Pokedex(){
+    std::cout << "Closing the pokedex..." << std::endl;
+    for (Pokemon* pokemon : arrayOfPokemon){
+        delete pokemon;
+    }
+    std::cout << "Pokedex successfully closed !" << std::endl;
 }

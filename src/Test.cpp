@@ -66,5 +66,7 @@ int main(){
     //delete pokeball;
     //delete pokedex;
 
+    Pokemon* testPKMN = pokedex->getPokemonByName("moltres");
+    testPKMN->displayInfo();
     return 0;
 }

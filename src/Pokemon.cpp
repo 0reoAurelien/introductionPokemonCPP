@@ -7,10 +7,10 @@
 
 int Pokemon::count = 0;
 
-Pokemon::Pokemon(int id, const string &name, int hitpoint, double attack, double defense, int gen):
-name(name), id(id), hitpoint(hitpoint), attack(attack), defense(defense), gen(gen) {
+Pokemon::Pokemon(int id, const string &name, int hitpoint, double attack, double defense, double speed, int gen, int legendary):
+name(name), id(id), hitpoint(hitpoint), attack(attack), defense(defense), speed(speed), gen(gen), legendary(legendary) {
     count++;
-
+    srand(time(NULL));
     std::cout << "There are now " << count << " in the universe." << std::endl;
     //use "swith (count)" instead
     }
@@ -35,6 +35,10 @@ int Pokemon::getATK() const{
 
 int Pokemon::getDEF() const{
     return defense;
+}
+
+int Pokemon::getSPEED() const{
+    return speed;
 }
 
 int Pokemon::getHP() const{
@@ -86,7 +90,17 @@ void Pokemon::displayInfo(){
     std::cout << "Attack: " << getATK() << std::endl;
     std::cout << "Defense: " << getDEF() << std::endl;
     std::cout << "Generation: " << gen << std::endl;
+
+    if (legendary){std::cout << "This is a legendary pokemon !" << std::endl;}
+    if (shiny){std::cout << "This " << getName() << " is shiny !" << std::endl;}
+
     std::cout << "\n" << std::endl;
+}
+
+int Pokemon::capture(int catchRate)
+{
+    int attempt = rand()%100;
+    return (attempt > catchRate);
 }
 
 Pokemon::~Pokemon(){

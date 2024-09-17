@@ -1,6 +1,8 @@
 #include "PokemonParty.hpp"
 #include "Pokeball.hpp"
 #include "Pokedex.hpp"
+#include "Utility.hpp"
+
 #include <iostream>
 #include <string>
 #include <vector>

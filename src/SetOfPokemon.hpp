@@ -16,7 +16,6 @@ public:
     Pokemon* findPokemonById(int id);
     virtual Pokemon* getPokemonByName(const string& name) = 0;
     virtual Pokemon* getPokemonById(int id) = 0;
-    string stringTolower(const string& str);
     void displayList();
     void displayListDetails();
 };

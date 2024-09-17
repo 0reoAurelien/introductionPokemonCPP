@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "SetOfPokemon.hpp"
+#include "Utility.hpp"
 
 #include <string>
 
@@ -31,12 +32,3 @@ void SetOfPokemon::displayListDetails(){
     }
 }
 
-
-string SetOfPokemon::stringTolower(const string& str) 
-{   
-    string newstr = str;
-    for(int i = 0; str[i]; i++){
-        newstr[i] = tolower(str[i]);
-    }
-    return newstr;
-} 

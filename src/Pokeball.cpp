@@ -3,6 +3,7 @@
 
 #include "Pokedex.hpp"
 #include "PokemonParty.hpp"
+#include "Utility.hpp"
 
 Pokeball::Pokeball()
 {
