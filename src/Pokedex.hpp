@@ -17,6 +17,7 @@ public:
     static Pokedex * getInstance();
     Pokemon* getPokemonByName(const string& name, int removeFromList=0);
     Pokemon* getPokemonById(const int id, int removeFromList=0);
-    Pokemon* randomWildPokemon(string type1 = "", string type2 = "", string type3 = "", int allowLegendary = 1);
+    Pokemon* randomWildPokemon(int allowLegendary, string type1 = "", string type2 = "", string type3 = "", int forceLegendary = 1);
+    string getTitle() override;
     ~Pokedex();
 };

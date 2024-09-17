@@ -13,7 +13,7 @@ int SetOfPokemon::maxId = 0;
 
 void SetOfPokemon::displayList(){
 
-    std::cout << "***** " << title << " *****\n" << std::endl;
+    std::cout << "***** " << getTitle() << " *****\n" << std::endl;
 
     for (Pokemon* pokemon : arrayOfPokemon) {
         //std::cout << "There are pokemons in the arrayOfPokemon" << std::endl;
@@ -27,8 +27,8 @@ void SetOfPokemon::displayList(){
 
 
 void SetOfPokemon::displayListDetails(){
-
-    std::cout << "***** " << title << " *****\n" << std::endl;
+    string debug = getTitle();
+    std::cout << "***** " << debug << " *****\n" << std::endl;
 
     for (Pokemon* pokemon : arrayOfPokemon) {
         pokemon -> displayInfo();

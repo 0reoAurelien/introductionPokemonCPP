@@ -16,7 +16,6 @@ Pokeball* linkedPokeball = nullptr;
 
 PokemonParty::PokemonParty(vector <Pokemon*> pokemonList)
 {
-    title = "CURRENT TEAM";
     for (Pokemon* pokemon : pokemonList){
         if(arrayOfPokemon.size() > 6){
             delete pokemon;
@@ -30,6 +29,11 @@ PokemonParty::PokemonParty(vector <Pokemon*> pokemonList)
         }
     }
 }
+
+string PokemonParty::getTitle(){
+    return "CURRENT TEAM";
+}
+
 
 Pokemon *PokemonParty::getPokemonById(int id, int removeFromList){
     if (id>0 && id <= maxId){  

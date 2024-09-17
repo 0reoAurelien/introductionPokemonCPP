@@ -7,7 +7,11 @@
 
 Pokeball::Pokeball()
 {
-    title = "POKEMON PC";
+}
+
+string Pokeball::getTitle()
+{
+    return "POKEMON PC";
 }
 
 Pokemon *Pokeball::getPokemonById(int id, int removeFromList){

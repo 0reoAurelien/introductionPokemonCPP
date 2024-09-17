@@ -9,10 +9,10 @@ Player::Player(const string &name): username(name)
     Pokemon* starterPokemon = nullptr;
     vector <Pokemon*> pokemonList = {};
     for (int i; i<3; i++){
-        starterPokemon = pokedex->randomWildPokemon();
+        starterPokemon = pokedex->randomWildPokemon(0);
         pokemonList.push_back(starterPokemon);
     }
-    PokemonParty* pokemonParty = new PokemonParty(pokemonList);
+    pokemonParty = new PokemonParty(pokemonList);
 }
 
 

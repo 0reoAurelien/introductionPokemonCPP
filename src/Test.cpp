@@ -86,7 +86,9 @@ int main(){
 */
 
     
-    Player* Aurelien = new Player("Aurelien");
+    Player* aurelien = new Player("Aurelien");
+
+    aurelien->pokemonParty->displayListDetails();
 
 
 

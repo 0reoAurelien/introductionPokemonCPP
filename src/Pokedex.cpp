@@ -16,7 +16,6 @@ using std::vector;
 
 
 Pokedex::Pokedex():SetOfPokemon(){
-    title = "POKEDEX";
     srand(time(NULL));
     std::cout << "Updating your pokedex...\n" << std::endl;
     const string fileName = "../resources/pokedex.csv";
@@ -63,6 +62,13 @@ Pokedex::Pokedex():SetOfPokemon(){
 
 Pokedex* Pokedex::pokedex = nullptr;
 
+
+string Pokedex::getTitle()
+{
+    return "POKEDEX";
+}
+
+
 Pokedex* Pokedex::getInstance() {
     if (pokedex == nullptr){
         pokedex = new Pokedex();
@@ -100,14 +106,13 @@ Pokemon* Pokedex::getPokemonByName(const string& name, int removeFromList) {
 }
 
 
-Pokemon *Pokedex::randomWildPokemon(string type1, string type2, string type3, int allowLegendary){
+Pokemon *Pokedex::randomWildPokemon(int allowLegendary, string type1, string type2, string type3, int forceLegendary){
     int id = 1+rand()%maxId;
     Pokemon* pokemon = getPokemonById(id);
     // I'll write a new method later to manage the possible types
     // and prevent the creation of legendary pokemon when it's not allowed
     return pokemon;
 }
-
 
 
 Pokedex::~Pokedex(){
