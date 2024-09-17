@@ -8,15 +8,15 @@
 int Pokemon::count = 0;
 
 Pokemon::Pokemon(int id, const string &name, int hitpoint, double attack, double defense, double speed, int gen, int legendary):
-name(name), id(id), hitpoint(hitpoint), attack(attack), defense(defense), speed(speed), gen(gen), legendary(legendary) {
+name(name), id(id), hitpoint(hitpoint), attack(attack), defense(defense), speed(speed), gen(gen), legendary(legendary), shiny(0) {
     count++;
     srand(time(NULL));
     std::cout << "There are now " << count << " in the universe." << std::endl;
     //use "swith (count)" instead
     }
 
-Pokemon::Pokemon(const Pokemon &anotherPokemon):
-name(anotherPokemon.name), id(anotherPokemon.id), hitpoint(anotherPokemon.hitpoint), attack(anotherPokemon.attack), defense(anotherPokemon.defense), gen(anotherPokemon.gen) {
+Pokemon::Pokemon(const Pokemon &anotherPokemon, int isShiny):
+name(anotherPokemon.name), id(anotherPokemon.id), hitpoint(anotherPokemon.hitpoint), attack(anotherPokemon.attack), defense(anotherPokemon.defense), gen(anotherPokemon.gen), shiny(isShiny) {
     std::cout << "A new " << name << " was created !\n" << std::endl;
 }
 

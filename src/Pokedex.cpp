@@ -8,6 +8,8 @@
 #include <fstream>
 #include <sstream>
 
+#define SHINY_ODDS 300
+
 using std::string;
 using std::vector;
 
@@ -95,7 +97,7 @@ Pokemon* Pokedex::getPokemonByName(const string& name) {
 }
 
 
-Pokemon *Pokedex::randomWildPokemon(){
+Pokemon *Pokedex::randomWildPokemon(string type1, string type2, string type3){
     int id = 1+rand()%maxId;
     for (Pokemon* pokemon : arrayOfPokemon){ //On parcourt la liste des Pokémon dans la Pokeball
         if (pokemon->getId() == id){

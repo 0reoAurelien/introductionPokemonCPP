@@ -17,12 +17,12 @@ class Pokemon{
     int gen;
     static int count;
     int legendary;
-    int shiny = 0;
+    int shiny;
 
 
     public:
     Pokemon(int id, const string &name, int hitpoint, double attack, double defense, double speed, int gen, int legendary);
-    Pokemon(const Pokemon &anotherPokemon);
+    Pokemon(const Pokemon &anotherPokemon, int isShiny);
 
     string getName() const;
     int getId() const;

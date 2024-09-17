@@ -17,6 +17,6 @@ public:
     static Pokedex * getInstance();
     Pokemon* getPokemonByName(const string& name);
     Pokemon* getPokemonById(const int id);
-    Pokemon* randomWildPokemon();
+    Pokemon* randomWildPokemon(string type1 = "", string type2 = "", string type3 = "");
     ~Pokedex();
 };
