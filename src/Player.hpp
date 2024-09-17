@@ -4,11 +4,17 @@
 #include "Inventory.hpp"
 #include "Pokeball.hpp"
 #include "PokemonParty.hpp"
+#include <string>
+
+using std::string;
 
 class Player {
 public :
-    Pokemon * starterPokemon = nullptr;
+    Player(const string &name);
+    string username;
     PokemonParty pokemonParty;
     Pokeball pokeball;
-    Inventory inventory;    
+    Inventory inventory;
+
+    ~Player();
 };

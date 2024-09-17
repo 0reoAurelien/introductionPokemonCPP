@@ -30,6 +30,7 @@ class Pokemon{
     int getDEF() const;
     int getSPEED() const;
     int getHP() const;
+    int isLegendary() const;
     void setHP(int newHP);
     void dealDmg(Pokemon &anotherPokemon);
     void displayName();

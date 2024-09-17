@@ -17,7 +17,6 @@ using std::string;
 class Game{
     private:
     int state;
-    string username;
     Pokedex* pokedex = nullptr;
     int playerLevel;
     Pokemon * starterPokemon = nullptr;
@@ -26,13 +25,7 @@ class Game{
     public:
     Game();
 
-    string getName() const;
-    int getId() const;
-    int getATK() const;
-    int getDEF() const;
-    int getHP() const;
+    void play();
 
-    void displayName();
-    void displayInfo();
     ~Game();
 };

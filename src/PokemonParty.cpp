@@ -8,22 +8,24 @@
 #include <vector>
 #include  <stdexcept>
 
+using std::vector;
+using std::string;
+
 
 Pokeball* linkedPokeball = nullptr;
 
-PokemonParty::PokemonParty(const std::vector <std::string> &names, Pokeball* pokeball):linkedPokeball(pokeball)
+PokemonParty::PokemonParty(vector <Pokemon*> pokemonList)
 {
-    for (const std::string &name : names){
-        if(arrayOfPokemon.size()>=6){
-            std::cout << "Team is full !" << std::endl;
-            break;
-        }
-        Pokemon* pokemon = linkedPokeball->getPokemonByName(name);
-        if (pokemon != nullptr){
-            arrayOfPokemon.push_back(pokemon);
+    for (Pokemon* pokemon : pokemonList){
+        if(arrayOfPokemon.size() > 6){
+            delete pokemon;
         }
         else {
-            std::cout << "Couldn't find " << name << std::endl;
+            arrayOfPokemon.push_back(pokemon);
+
+            if (arrayOfPokemon.size() == 6){
+                std::cout << "Team is full !" << std::endl;
+            }
         }
     }
 }

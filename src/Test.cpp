@@ -50,14 +50,13 @@ int main(){
     randomPokemon->displayInfo();
     randomPokemon->displayName();
 
-    Pokeball* pokeball = new Pokeball();
-    vector <string> names = {"charmander", "squirtle", "mew", "ditto", "pichu", "riolu", "alakazam"};
+    Pokemon* pkmn1 = pokedex->randomWildPokemon();
+    Pokemon* pkmn2 = pokedex->randomWildPokemon();
+    Pokemon* pkmn3 = pokedex->randomWildPokemon();
 
-    for (string &name : names){
-        pokeball->addPokemon(pokedex->getPokemonByName(name));
-    }
+    vector <Pokemon*> pokemonList = {pkmn1, pkmn2, pkmn3};
 
-    PokemonParty* party = new PokemonParty(names, pokeball);
+    PokemonParty* party = new PokemonParty(pokemonList);
 
     //pokedex->displayList();
 

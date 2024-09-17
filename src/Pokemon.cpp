@@ -45,6 +45,11 @@ int Pokemon::getHP() const{
     return hitpoint;
 }
 
+int Pokemon::isLegendary() const
+{
+    return legendary;
+}
+
 void Pokemon::setHP(int newHP){
     hitpoint = newHP;
 }

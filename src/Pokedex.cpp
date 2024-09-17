@@ -71,10 +71,11 @@ Pokedex* Pokedex::getInstance() {
 
 
 Pokemon* Pokedex::getPokemonById(const int id) {
+    int isShiny = (SHINY_ODDS < rand()%8192);
     if (id>0 && id <= maxId){
         for (Pokemon* pokemon : arrayOfPokemon){ //On parcourt la liste des Pokémon dans la Pokeball
             if (pokemon->getId() == id){
-                Pokemon* p = new Pokemon(*pokemon);
+                Pokemon* p = new Pokemon(*pokemon, isShiny);
                 return p;
             }
         }
@@ -85,10 +86,11 @@ Pokemon* Pokedex::getPokemonById(const int id) {
 
 
 Pokemon* Pokedex::getPokemonByName(const string& name) {
+    int isShiny = (SHINY_ODDS < rand()%8192);
     string namecopy = stringTolower(name);
     for (Pokemon* pokemon : arrayOfPokemon){ //On parcourt la liste des Pokémon dans la Pokeball
         if (pokemon->getName() == namecopy){
-            Pokemon* p = new Pokemon(*pokemon);
+            Pokemon* p = new Pokemon(*pokemon, isShiny);
             return p;
         }
     }
@@ -99,12 +101,8 @@ Pokemon* Pokedex::getPokemonByName(const string& name) {
 
 Pokemon *Pokedex::randomWildPokemon(string type1, string type2, string type3){
     int id = 1+rand()%maxId;
-    for (Pokemon* pokemon : arrayOfPokemon){ //On parcourt la liste des Pokémon dans la Pokeball
-        if (pokemon->getId() == id){
-            return pokemon;
-        }
-    }
-    return nullptr;
+    Pokemon* pokemon = getPokemonById(id);
+    return pokemon;
 }
 
 
