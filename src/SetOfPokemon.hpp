@@ -15,8 +15,8 @@ public:
     static int maxId;
     Pokemon* findPokemonByName(const string& name);
     Pokemon* findPokemonById(int id);
-    virtual Pokemon* getPokemonByName(const string& name) = 0;
-    virtual Pokemon* getPokemonById(int id) = 0;
+    virtual Pokemon* getPokemonByName(const string& name, int removeFromList) = 0;
+    virtual Pokemon* getPokemonById(int id, int removeFromList) = 0;
     void displayList();
     void displayListDetails();
 };

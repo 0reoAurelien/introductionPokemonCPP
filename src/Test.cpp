@@ -54,6 +54,8 @@ int main(){
     randomPokemon->displayName();
 */
 
+
+/*
     Pokemon* pkmn1 = pokedex->randomWildPokemon();
     Pokemon* pkmn2 = pokedex->randomWildPokemon();
 
@@ -81,9 +83,13 @@ int main(){
     party->displayList();
 
     party->displayListDetails();
-
+*/
 
     
+    Player* Aurelien = new Player("Aurelien");
+
+
+
     //pokedex->displayList();
 
 

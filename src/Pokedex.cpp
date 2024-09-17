@@ -71,7 +71,7 @@ Pokedex* Pokedex::getInstance() {
 }
 
 
-Pokemon* Pokedex::getPokemonById(const int id) {
+Pokemon* Pokedex::getPokemonById(const int id, int removeFromList) {
     int isShiny = (SHINY_ODDS > rand()%8192);
     if (id>0 && id <= maxId){
         for (Pokemon* pokemon : arrayOfPokemon){ //On parcourt la liste des Pokémon dans la Pokeball
@@ -86,7 +86,7 @@ Pokemon* Pokedex::getPokemonById(const int id) {
 }
 
 
-Pokemon* Pokedex::getPokemonByName(const string& name) {
+Pokemon* Pokedex::getPokemonByName(const string& name, int removeFromList) {
     int isShiny = (SHINY_ODDS > rand()%8192);
     string namecopy = stringTolower(name);
     for (Pokemon* pokemon : arrayOfPokemon){ //On parcourt la liste des Pokémon dans la Pokeball
@@ -100,9 +100,11 @@ Pokemon* Pokedex::getPokemonByName(const string& name) {
 }
 
 
-Pokemon *Pokedex::randomWildPokemon(string type1, string type2, string type3){
+Pokemon *Pokedex::randomWildPokemon(string type1, string type2, string type3, int allowLegendary){
     int id = 1+rand()%maxId;
     Pokemon* pokemon = getPokemonById(id);
+    // I'll write a new method later to manage the possible types
+    // and prevent the creation of legendary pokemon when it's not allowed
     return pokemon;
 }
 

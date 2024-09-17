@@ -16,8 +16,10 @@ name(name), id(id), hitpoint(hitpoint), attack(attack), defense(defense), speed(
     }
 
 Pokemon::Pokemon(const Pokemon &anotherPokemon, int isShiny):
-name(anotherPokemon.name), id(anotherPokemon.id), hitpoint(anotherPokemon.hitpoint), attack(anotherPokemon.attack), defense(anotherPokemon.defense), gen(anotherPokemon.gen), legendary(anotherPokemon.legendary), shiny(isShiny) {
-    std::cout << "A new " << name << " was created !\n" << std::endl;
+name(anotherPokemon.name), id(anotherPokemon.id), hitpoint(anotherPokemon.hitpoint), attack(anotherPokemon.attack), defense(anotherPokemon.defense), speed(anotherPokemon.speed), gen(anotherPokemon.gen), legendary(anotherPokemon.legendary), shiny(isShiny) {
+    count++;
+    string shinyPrefix = (isShiny)? "Shiny " : ""; 
+    std::cout << "A new " << shinyPrefix << name << " was created !\n" << std::endl;
 }
 
 
