@@ -170,7 +170,13 @@ void Game::playMulti(){
                     }
                     else{
                         if (choice == "both"){
-                        state = (state + modeSelection)%(8);
+                        string wait = "";
+                        std::cout << "It's Player1's turn to create their team" << std::endl;
+                        std::cin >> wait;
+                        bothReady[0] = editPlayer(1);
+                        std::cout << "It's now Player2's turn to create their team" << std::endl;
+                        std::cin >> wait;
+                        bothReady[1] = editPlayer(2);
                         }
                         else {
                             if(choice == "player1"){
