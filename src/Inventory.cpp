@@ -16,13 +16,13 @@ void Inventory::addItem(int itemId){
     sortItems(&arrayOfItem);
 }
 
-int Inventory::useItem(Item *item, Pokemon* pokemon)
+vector <int> Inventory::useItem(Item *item, Pokemon* pokemon)
 {
-    int isCaptured = (item->use(pokemon))[1];
+    vector <int> endTurnAndisCaptured = item->use(pokemon);
     if (!(item->amount)){
         delete item;
     }
-    return isCaptured;
+    return endTurnAndisCaptured;
 }
 
 void Inventory::sellItem(Item *item)

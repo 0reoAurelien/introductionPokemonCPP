@@ -9,6 +9,9 @@
 #include <string>
 #include <iostream>
 
+#define MultiPlayer 0
+#define SinglePlayer 1
+
 
 using std::string;
 
@@ -24,6 +27,7 @@ class Game{
 
     public:
     Game();
+    static int gamemode;
     static Pokemon* activeEnemy;
 
     void play();

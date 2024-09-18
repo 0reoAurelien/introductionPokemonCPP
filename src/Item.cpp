@@ -9,7 +9,7 @@
 #define Nugget 5
 #define OranBerry 6
 #define Potion 7
-#define AttackPlus 8
+#define Protein 8
 #define Revive 9
 
 
@@ -63,6 +63,10 @@ vector <int> Item::use(Pokemon* pokemon){
         case Potion:
             std::cout << "You use a Potion on " << pokemon->getName() << " !" <<std::endl;
             pokemon->setHP(pokemon->getHP()+200);
+            return {1, 0}; // 1 end of your turn and no capture
+        case Protein:
+            std::cout << "You use a Protein on " << pokemon->getName() << " !" <<std::endl;
+            pokemon->setATK(pokemon->getATK()+50);
             return {1, 0}; // 1 end of your turn and no capture
         case Revive:
             //bring back 1 pokemon to life (use Game::revive() static method, using a Game::dyingList)

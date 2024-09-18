@@ -17,7 +17,7 @@ public :
     Pokeball* pokeball;
     Inventory* inventory;
 
-    int useItem(Item* item);
+    vector <int> useItem(Item* item);
 
     ~Player();
 };

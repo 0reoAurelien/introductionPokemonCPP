@@ -1,13 +1,19 @@
 #include "Game.hpp"
 
 
-#define Pokeball 0
-#define Superball 1
-#define Hyperball 2
-#define OranBerry 3
-#define Potion 4
-#define AttackPlus 5
-#define Revive 6
+#define LoadingGame 0
+
+#define MainMenu 1
+#define MultiplayerMenu 2
+#define SinglePlayerMenu 3
+#define Settings 4
+
+#define TeamConfiguration 5
+#define Dueling 6
+
+#define TeamSelection 7
+#define Training 8
+#define GymAttempt 9
 
 
 Game::Game():

@@ -36,6 +36,9 @@ class Pokemon{
     void setFree(int freeToCatch);
     int isTaken();
     void setHP(int newHP);
+    void setATK(int newATK);
+    void setDEF(int newDEF);
+    void setSpeed(int newSpeed);
     void dealDmg(Pokemon &anotherPokemon);
     void displayName();
     void displayInfo();

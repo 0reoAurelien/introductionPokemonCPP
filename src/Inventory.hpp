@@ -15,7 +15,7 @@ public:
     int balance;
     Item* findItem(const string& name);
     void addItem(int itemId);
-    int useItem(Item* item, Pokemon* pokemon);
+    vector <int> useItem(Item* item, Pokemon* pokemon);
     void sellItem(Item* item);
     string stringTolower(const string& str);
 

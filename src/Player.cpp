@@ -1,5 +1,6 @@
 #include "Player.hpp"
 #include "Pokedex.hpp"
+#include "Game.hpp"
 
 
 Player::Player(const string &name): username(name)
@@ -17,24 +18,28 @@ Player::Player(const string &name): username(name)
 }
 
 
-int Player::useItem(Item *item)
+vector <int> Player::useItem(Item *item)
 {
     Pokemon* pokemon = nullptr;
     string targetName;
-    if (item->getId() < 2){
+
+    int itemId = item->getId();
+    if (itemId > 6){ //  the first 6 items are not self applicable
         //ask for a Pokemon cible
         std::cout << "What pokemon do you want to give a " << item->getName() << " ?\n" << std::endl;
         std::cin >> targetName;
         pokemon = pokemonParty->getPokemonByName(targetName, 0);
     }
-    else {
-        //pokemon = Game::activeEnemy;
+    if ((Game::gamemode == SinglePlayer)&&(itemId < 3)){ // the first 3 items are pokeballs to throw at the enemy
+        pokemon = Game::activeEnemy;
     }
 
     if (pokemon != nullptr){
-        return 0;
+        std::cout << "This action couldn't be performed.\n" << std::endl;
+        return {0, 0};
     }
-    return 0;
+    
+    return inventory->useItem(item, pokemon);
 }
 
 

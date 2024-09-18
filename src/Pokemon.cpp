@@ -71,6 +71,18 @@ void Pokemon::setHP(int newHP){
     hitpoint = newHP;
 }
 
+void Pokemon::setATK(int newATK){
+    attack = newATK;
+}
+
+void Pokemon::setDEF(int newDEF){
+    defense = newDEF;
+}
+
+void Pokemon::setSpeed(int newSpeed){
+    speed = newSpeed;
+}
+
 
 void Pokemon::dealDmg(Pokemon &anotherPokemon){
     if (getHP() == 0){
