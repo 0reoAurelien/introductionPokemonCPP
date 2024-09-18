@@ -27,6 +27,7 @@ class Game{
     
     Player * player1;
     Player * player2;
+    
     int bothReady[2] = {0, 0};
 
     public:

@@ -87,6 +87,7 @@ Pokemon* Pokedex::getPokemonById(const int id, int removeFromList) {
             }
         }
     }
+    clearFrame();
     std::cout << "Are you on drugs ? This pokemon doesn't exist !\n" << std::endl;
     return nullptr;
 }
@@ -101,6 +102,7 @@ Pokemon* Pokedex::getPokemonByName(const string& name, int removeFromList) {
             return p;
         }
     }
+    clearFrame();
     std::cout << "Are you on drugs ? This pokemon doesn't exist !" << std::endl;
     return nullptr;
 }

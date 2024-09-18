@@ -21,19 +21,24 @@ Player::Player(const string &name): username(name)
     playerLevel=0;
 }
 
+string Player::getUsername() const
+{
+    return username;
+}
+
 void Player::addPokeToParty(Pokemon *pokeToAdd, int gamemode)
 {
     pokemonParty->addPokemon(pokeToAdd);
     if (pokemonParty->getPartySize() > 6){
 
         Pokemon* pokeToRemove = nullptr;
-        string targetPokemon = "";
+        string targetName = "";
         while (pokeToRemove == nullptr){
             std::cout << "Your party cannot contain more than 6 pokemon.\nPlease select a pokemon to remove.\n\n" << std::endl;
             pokemonParty->displayList();
-            std::cin >> targetPokemon;
-            targetPokemon = stringTolower(targetPokemon);
-            pokeToRemove = pokemonParty->getPokemonByName(targetPokemon);
+            std::cin >> targetName;
+            targetName = stringTolower(targetName);
+            pokeToRemove = pokemonParty->getPokemonByName(targetName);
             if (pokeToRemove == nullptr){
                 clearFrame();
                 std::cout << "You didn't select a valid pokemon, please try again." << std::endl;
@@ -68,7 +73,7 @@ vector <int> Player::useItem(Item *item)
         pokemon = Game::activeEnemy;
     }
 
-    if (pokemon != nullptr){
+    if (pokemon == nullptr){
         std::cout << "This action couldn't be performed.\n" << std::endl;
         return {0, 0};
     }

@@ -40,7 +40,7 @@ Pokemon *Pokeball::getPokemonById(int id, int removeFromList){
 
             case 1 :{
                 
-                Pokemon* p_out = matchingList.at(0);
+                p_out = matchingList.at(0);
                 index = indexList.at(0);
                 if (removeFromList){
                     arrayOfPokemon.erase(arrayOfPokemon.begin()+index);
@@ -110,7 +110,7 @@ Pokemon *Pokeball::getPokemonByName(const string &name, int removeFromList){
 
         case 1 :{
             
-            Pokemon* p_out = matchingList.at(0);
+            p_out = matchingList.at(0);
             index = indexList.at(0);
             if (removeFromList){
                 arrayOfPokemon.erase(arrayOfPokemon.begin()+index);

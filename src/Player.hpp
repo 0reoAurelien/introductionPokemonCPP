@@ -9,9 +9,11 @@
 using std::string;
 
 class Player {
+private :
+    string username;
 public :
     Player(const string &name);
-    string username;
+    string getUsername() const;
     PokemonParty* pokemonParty;
     void addPokeToParty(Pokemon* pokeToAdd, int gamemode);
     void removePokeFromParty(Pokemon* pokeToRemove);

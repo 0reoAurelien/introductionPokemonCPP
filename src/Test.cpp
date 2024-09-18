@@ -92,12 +92,33 @@ int main(){
 
 
 
+    //string input = "";
+    //std::cin >> input;
+    Pokemon* pkmnTest = nullptr;
+    //pkmnTest = pokedex->getPokemonByName(input);
+
+    pkmnTest = pokedex->getPokemonByName("mewtwo");
+    aurelien->addPokeToParty(pkmnTest, 0);
+
+    pkmnTest = pokedex->getPokemonByName("mew");
+    aurelien->addPokeToParty(pkmnTest, 0);
+
+    pkmnTest = pokedex->getPokemonByName("mewtwo");
+    aurelien->addPokeToParty(pkmnTest, 0);
+
+    pkmnTest = pokedex->getPokemonByName("gyarados");
+    aurelien->addPokeToParty(pkmnTest, 0);
+
+
+
     //pokedex->displayList();
 
 
     //delete pokemonParty;
     //delete pokeball;
     //delete pokedex;
+
+    
 
     return 0;
 }

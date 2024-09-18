@@ -19,7 +19,10 @@ void clearFrame(){
     std::cout << "\033[H\033[J" << std::endl;
 }
 
-
+void waitConfirm(){
+    string wait = "";
+    std::cin >> wait;
+}
 void sortItems(vector<Item *> *liste)
 {
 }

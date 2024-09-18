@@ -40,16 +40,15 @@ void Game::play(){
                 clearFrame();
                 std::cout << "Welcome to the wonderful world of Pokemon !\n" << std::endl;
 
-                Pokedex* pokedex = Pokedex::getInstance();
+                pokedex = Pokedex::getInstance();
 
                 std::cout << "Please enter your name to start the game\n" << std::endl;
-                string wait = "";
-
-                std::cin >> wait;
+                
+                waitConfirm();
                 clearFrame();
 
                 std::cout << "Are you sure that you are not Mr. Tauvel ?\n" << std::endl;
-                std::cin >> wait;
+                waitConfirm();
 
                 state = MainMenu;
                 break;
@@ -88,6 +87,8 @@ void Game::play(){
 
             case MultiplayerMenu:{
                 //std::cout << "This mode is still under development, sorry\n" << std::endl;
+                player1 = new Player("Player1");
+                player2 = new Player("Player2");                
                 playMulti();
                 state = MainMenu;
             }
@@ -203,13 +204,28 @@ void Game::playMulti(){
 
             case Dueling:{
                 //std::cout << "This mode is still under development, sorry\n" << std::endl;
-                playSolo();
+                std::cout << "Here is the team of " << player1->getUsername() << " :" << std::endl;
+                player1->pokemonParty->displayListDetails();
+                waitConfirm();
+                clearFrame();
+                std::cout << "And here is the team of " << player2->getUsername() << " :" << std::endl;
+                player2->pokemonParty->displayListDetails();
+                waitConfirm();
+                clearFrame();
+
+                std::cout << "Vous savez, moi je pense que la violence ne résout rien" << std::endl;
+                waitConfirm();
+                std::cout << "Et puis comme on dit toujours, l'important c'est de participer" << std::endl;
+                waitConfirm();
+                std::cout << "Vous n'allez quand même pas vous battre ?\nRevenez plutôt au menu principal" << std::endl;
+                waitConfirm();
+
+                //Duel();
                 state = MainMenu;
             }
             
 
             default:{
-                state = ExitGame;
                 break;
             }
         }
@@ -218,6 +234,10 @@ void Game::playMulti(){
 
 void Game::playSolo()
 {
+    clearFrame();
+    std::cout << "Unfortunately, you arrived too early !\nThis mode is still under development." << std::endl;
+    waitConfirm();
+    state = MainMenu;
 }
 
 
@@ -232,9 +252,16 @@ int Game::editPlayer(int sel)
 
     if (sel == 1){
 
+        std::cout << "Player 1, what is your name ?" << std::endl;
+        std::cin >> choice;
+        std::cout << "Ok " << choice << ", let me give you your first pokemons." << std::endl;
+        player1 = new Player(choice);
+        waitConfirm();
+        clearFrame();
+
         int ready = 0;
         while (!ready){
-            std::cout << "Player 1, is there a pokemon that you want in your team ?\nYou can pick a total of 6 pokemons.\nType 'ready' when you are done !" << std::endl;
+            std::cout << player1->getUsername() << ", is there a pokemon that you want in your team ?\nYou can pick a total of 6 pokemons.\nType 'ready' when you are done !" << std::endl;
             std::cin >> choice;
             choice = stringTolower(choice);
 
@@ -253,9 +280,17 @@ int Game::editPlayer(int sel)
 
 
     if (sel == 2){
+
+        std::cout << "Player 2, what is your name ?" << std::endl;
+        std::cin >> choice;
+        std::cout << "Ok " << choice << ", let me give you your first pokemons." << std::endl;
+        player2 = new Player(choice);
+        std::cin >> choice; //wait confirmation
+        clearFrame();
+
         int ready = 0;
         while (!ready){
-            std::cout << "Player 2, is there a pokemon that you want in your team ?\nYou can pick a total of 6 pokemons.\nType 'ready' when you are done !" << std::endl;
+            std::cout << player2->getUsername() << ", is there a pokemon that you want in your team ?\nYou can pick a total of 6 pokemons.\nType 'ready' when you are done !" << std::endl;
             std::cin >> choice;
             choice = stringTolower(choice);
 
@@ -265,7 +300,7 @@ int Game::editPlayer(int sel)
             else {
                 pokeToAdd = pokedex->getPokemonByName(choice);
                 if (pokeToAdd != nullptr){
-                    player2->addPokeToParty(pokeToAdd, MultiPlayerMode);
+                    player2->addPokeToParty(pokedex->getPokemonByName(choice), MultiPlayerMode);
                 }
             }
         }
