@@ -53,7 +53,7 @@ Pokedex::Pokedex():SetOfPokemon(){
         //debugPoke -> displayInfo();
         
     }
-    
+    std::cout << "There are now " << Pokemon::count << " pokemons in the universe.\n" << std::endl;
     std::cout << "\nYour pokedex was successfully updated !\n" << std::endl;
     //std::cout << "The maximum ID is " << maxId << std::endl;
 

@@ -1,5 +1,6 @@
 #include "Player.hpp"
 #include "Pokedex.hpp"
+#include "Utility.hpp"
 #include "Game.hpp"
 
 
@@ -15,8 +16,41 @@ Player::Player(const string &name): username(name)
     }
     pokemonParty = new PokemonParty(pokemonList);
     dyingPokemons = new PokemonParty();
+    activePokemon = nullptr;
+    badges = 0;
+    playerLevel=0;
 }
 
+void Player::addPokeToParty(Pokemon *pokeToAdd, int gamemode)
+{
+    pokemonParty->addPokemon(pokeToAdd);
+    if (pokemonParty->getPartySize() > 6){
+
+        Pokemon* pokeToRemove = nullptr;
+        string targetPokemon = "";
+        while (pokeToRemove == nullptr){
+            std::cout << "Your party cannot contain more than 6 pokemon.\nPlease select a pokemon to remove.\n\n" << std::endl;
+            pokemonParty->displayList();
+            std::cin >> targetPokemon;
+            targetPokemon = stringTolower(targetPokemon);
+            pokeToRemove = pokemonParty->getPokemonByName(targetPokemon);
+            if (pokeToRemove == nullptr){
+                clearFrame();
+                std::cout << "You didn't select a valid pokemon, please try again." << std::endl;
+            }
+        }
+        if (gamemode){ 
+            removePokeFromParty(pokeToRemove); // send the pokemon back to pokeball
+        }
+        else{ // If the player is not in singleplayer mode, he doesn't need to send it back to pokeball
+            delete pokeToRemove; // to not this instance live forever
+        }
+    }
+}
+
+void Player::removePokeFromParty(Pokemon *pokeToRemove){
+    pokeball->addPokemon(pokeToRemove);
+}
 
 vector <int> Player::useItem(Item *item)
 {
@@ -30,7 +64,7 @@ vector <int> Player::useItem(Item *item)
         std::cin >> targetName;
         pokemon = pokemonParty->getPokemonByName(targetName, 0);
     }
-    if ((Game::gamemode == SinglePlayer)&&(itemId < 3)){ // the first 3 items are pokeballs to throw at the enemy
+    if ((Game::gamemode == SinglePlayerMode)&&(itemId < 3)){ // the first 3 items are pokeballs to throw at the enemy
         pokemon = Game::activeEnemy;
     }
 
@@ -38,7 +72,7 @@ vector <int> Player::useItem(Item *item)
         std::cout << "This action couldn't be performed.\n" << std::endl;
         return {0, 0};
     }
-    
+
     return inventory->useItem(item, pokemon);
 }
 

@@ -13,6 +13,13 @@ string stringTolower(const string& str)
     return newstr;
 }
 
+void clearFrame(){
+    for (int i=0; i<50; i++)
+        std::cout << "\n";
+    std::cout << "\033[H\033[J" << std::endl;
+}
+
+
 void sortItems(vector<Item *> *liste)
 {
 }

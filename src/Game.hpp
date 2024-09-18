@@ -4,13 +4,14 @@
 #include "Pokedex.hpp"
 #include "SetOfPokemon.hpp"
 #include "Pokeball.hpp"
+#include "Player.hpp"
 
 
 #include <string>
 #include <iostream>
 
-#define MultiPlayer 0
-#define SinglePlayer 1
+#define MultiPlayerMode 0
+#define SinglePlayerMode 1
 
 
 using std::string;
@@ -21,9 +22,12 @@ class Game{
     private:
     int state;
     Pokedex* pokedex = nullptr;
-    int playerLevel;
-    
 
+    vector <int> achievements; //Needs to read the save files to fill it
+    
+    Player * player1;
+    Player * player2;
+    int bothReady[2] = {0, 0};
 
     public:
     Game();
@@ -31,6 +35,10 @@ class Game{
     static Pokemon* activeEnemy;
 
     void play();
+    void playSolo();
+    void playMulti();
+
+    int editPlayer(int sel);
 
     ~Game();
 };

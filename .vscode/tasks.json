@@ -17,6 +17,7 @@
                 "${workspaceFolder}/src/Item.cpp",
                 "${workspaceFolder}/src/Inventory.cpp",
                 "${workspaceFolder}/src/Player.cpp",
+                "${workspaceFolder}/src/Game.cpp",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],

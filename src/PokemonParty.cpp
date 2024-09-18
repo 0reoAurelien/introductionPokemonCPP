@@ -38,6 +38,10 @@ string PokemonParty::getTitle(){
     return "CURRENT TEAM";
 }
 
+int PokemonParty::getPartySize()
+{
+    return arrayOfPokemon.size();
+}
 
 Pokemon *PokemonParty::getPokemonById(int id, int removeFromList){
     if (id>0 && id <= maxId){  

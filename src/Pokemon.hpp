@@ -15,7 +15,6 @@ class Pokemon{
     double defense;
     double speed;
     int gen;
-    static int count;
     int legendary;
     int shiny;
     int taken;
@@ -24,6 +23,8 @@ class Pokemon{
     public:
     Pokemon(int id, const string &name, int hitpoint, double attack, double defense, double speed, int gen, int legendary);
     Pokemon(const Pokemon &anotherPokemon, int isShiny);
+
+    static int count;
 
     string getName() const;
     int getId() const;

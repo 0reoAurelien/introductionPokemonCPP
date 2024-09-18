@@ -11,7 +11,7 @@ Pokemon::Pokemon(int id, const string &name, int hitpoint, double attack, double
 name(name), id(id), hitpoint(hitpoint), attack(attack), defense(defense), speed(speed), gen(gen), legendary(legendary), shiny(0) {
     count++;
     srand(time(NULL));
-    std::cout << "There are now " << count << " in the universe." << std::endl;
+    //std::cout << "There are now " << count << " pokemons in the universe." << std::endl;
     //use "swith (count)" instead
     }
 
