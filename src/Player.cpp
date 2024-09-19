@@ -4,30 +4,21 @@
 #include "Game.hpp"
 
 
-Player::Player(const string &name, int randomStarters): username(name)
+Player::Player(const string &name): username(name)
 {
     Pokedex* pokedex = Pokedex::getInstance();
     vector <Pokemon*> pokemonList = {};
 
-    if (randomStarters){
-
-        Pokemon* starterPokemon = nullptr;
-
-        std::cout << "Ok " << name << ", let me give you your first pokemons.\n" << std::endl;
-        for (int i; i<3; i++){
-            starterPokemon = pokedex->randomWildPokemon(0);
-            pokemonList.push_back(starterPokemon);
-        }
-        pokemonParty = new PokemonParty(pokemonList);
-        waitConfirm();
-    }
-    else {
-        pokemonParty = new PokemonParty();
-    }
+    pokemonParty = new PokemonParty();
     dyingPokemons = new PokemonParty();
     activePokemon = nullptr;
     badges = 0;
     playerLevel=0;
+}
+
+void Player::setUsername(string name)
+{
+    username = name;
 }
 
 string Player::getUsername() const
@@ -59,6 +50,16 @@ void Player::addPokeToParty(Pokemon *pokeToAdd, int gamemode)
         else{ // If the player is not in singleplayer mode, he doesn't need to send it back to pokeball
             delete pokeToRemove; // to not this instance live forever
         }
+    }
+}
+
+void Player::receiveStarters()
+{
+    Pokemon* starterPokemon;
+    Pokedex* pokedex = Pokedex::getInstance();
+    for (int i = 0; i<3; i++){
+        starterPokemon = pokedex->randomWildPokemon(0);
+        pokemonParty->addPokemon(starterPokemon);
     }
 }
 

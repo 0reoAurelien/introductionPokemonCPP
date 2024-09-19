@@ -10,6 +10,8 @@
 #include <string>
 #include <iostream>
 
+#define TRUE 1
+#define FALSE 0
 #define MultiPlayerMode 0
 #define SinglePlayerMode 1
 
@@ -25,6 +27,7 @@ class Game{
 
     vector <int> achievements; //Needs to read the save files to fill it
     
+    Player * player0;
     Player * player1;
     Player * player2;
 

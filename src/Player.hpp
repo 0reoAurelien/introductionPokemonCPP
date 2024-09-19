@@ -12,10 +12,12 @@ class Player {
 private :
     string username;
 public :
-    Player(const string &name, int randomStarters = 0);
+    Player(const string &name);
+    void setUsername(string name);
     string getUsername() const;
     PokemonParty* pokemonParty;
     void addPokeToParty(Pokemon* pokeToAdd, int gamemode);
+    void receiveStarters();
     void removePokeFromParty(Pokemon* pokeToRemove);
     Pokemon* activePokemon;
     PokemonParty* dyingPokemons;

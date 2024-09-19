@@ -14,7 +14,7 @@ using std::vector;
 string stringTolower(const string& str);
 void clearFrame();
 void waitConfirm();
-int isValidInteger(string);
+int isValidInteger(string userInput);
 
 void sortItems(vector <Item*> *liste);
 void sortPokemons(vector <Pokemon*> *liste);
