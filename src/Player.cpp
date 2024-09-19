@@ -4,17 +4,26 @@
 #include "Game.hpp"
 
 
-Player::Player(const string &name): username(name)
+Player::Player(const string &name, int randomStarters): username(name)
 {
     Pokedex* pokedex = Pokedex::getInstance();
-
-    Pokemon* starterPokemon = nullptr;
     vector <Pokemon*> pokemonList = {};
-    for (int i; i<3; i++){
-        starterPokemon = pokedex->randomWildPokemon(0);
-        pokemonList.push_back(starterPokemon);
+
+    if (randomStarters){
+
+        Pokemon* starterPokemon = nullptr;
+
+        std::cout << "Ok " << name << ", let me give you your first pokemons.\n" << std::endl;
+        for (int i; i<3; i++){
+            starterPokemon = pokedex->randomWildPokemon(0);
+            pokemonList.push_back(starterPokemon);
+        }
+        pokemonParty = new PokemonParty(pokemonList);
+        waitConfirm();
     }
-    pokemonParty = new PokemonParty(pokemonList);
+    else {
+        pokemonParty = new PokemonParty();
+    }
     dyingPokemons = new PokemonParty();
     activePokemon = nullptr;
     badges = 0;
@@ -37,10 +46,10 @@ void Player::addPokeToParty(Pokemon *pokeToAdd, int gamemode)
             std::cout << "Your party cannot contain more than 6 pokemon.\nPlease select a pokemon to remove.\n\n" << std::endl;
             pokemonParty->displayList();
             std::cin >> targetName;
+            clearFrame();
             targetName = stringTolower(targetName);
             pokeToRemove = pokemonParty->getPokemonByName(targetName);
             if (pokeToRemove == nullptr){
-                clearFrame();
                 std::cout << "You didn't select a valid pokemon, please try again." << std::endl;
             }
         }
@@ -85,6 +94,8 @@ vector <int> Player::useItem(Item *item)
 Player::~Player()
 {
     delete pokemonParty;
-    delete pokeball;
-    delete inventory;
+    //delete pokeball; //it won't work as they aren't itialized
+    //delete inventory; //same, I guess
+    //Ill add them inside the constructor first
+    delete dyingPokemons;
 }

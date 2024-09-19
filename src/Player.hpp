@@ -12,7 +12,7 @@ class Player {
 private :
     string username;
 public :
-    Player(const string &name);
+    Player(const string &name, int randomStarters = 0);
     string getUsername() const;
     PokemonParty* pokemonParty;
     void addPokeToParty(Pokemon* pokeToAdd, int gamemode);

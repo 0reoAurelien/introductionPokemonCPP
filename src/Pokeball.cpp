@@ -61,12 +61,18 @@ Pokemon *Pokeball::getPokemonById(int id, int removeFromList){
 
                 string selectInput = "";
                 std::cin >> selectInput;
-                int specificSelection = std::stoi(selectInput) - 1;
+                int specificSelection = 0;
+                if (isValidInteger(selectInput)){
+                    specificSelection = std::stoi(selectInput);
+                }
+                specificSelection--;
 
                 while (!((specificSelection>=0)&&(specificSelection<count))){
-                    std::cout << "The entered value is incorrect. Please try again with a correct number.\n" << std::endl;
+                    std::cout << "The entered value is incorrect. Please try again with a valid number.\n" << std::endl;
                     std::cin >> selectInput;
-                    int specificSelection = std::stoi(selectInput) - 1;
+                    if (isValidInteger(selectInput)){
+                        specificSelection = std::stoi(selectInput) - 1;
+                    }
                 }
 
                 p_out = matchingList.at(specificSelection);
@@ -131,12 +137,18 @@ Pokemon *Pokeball::getPokemonByName(const string &name, int removeFromList){
 
             string selectInput = "";
             std::cin >> selectInput;
-            int specificSelection = std::stoi(selectInput) - 1;
+            int specificSelection = 0;
+            if (isValidInteger(selectInput)){
+                specificSelection = std::stoi(selectInput);
+            }
+            specificSelection--;
 
             while (!((specificSelection>=0)&&(specificSelection<count))){
-                std::cout << "The entered value is incorrect. Please try again with a correct number.\n" << std::endl;
+                std::cout << "The entered value is incorrect. Please try again with a valid number.\n" << std::endl;
                 std::cin >> selectInput;
-                int specificSelection = std::stoi(selectInput) - 1;
+                if (isValidInteger(selectInput)){
+                    specificSelection = std::stoi(selectInput) - 1;
+                }
             }
 
             p_out = matchingList.at(specificSelection);

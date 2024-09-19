@@ -114,7 +114,8 @@ void Pokemon::dealDmg(Pokemon &anotherPokemon){
 }
 
 void Pokemon::displayName(){
-    std::cout << getName() << std::endl;
+    string shinyPrefix = (shiny)?"Shiny ":"";
+    std::cout << shinyPrefix << getName() << std::endl;
 }
 
 void Pokemon::displayInfo(){
