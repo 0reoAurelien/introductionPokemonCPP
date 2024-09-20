@@ -10,8 +10,7 @@
 #include <string>
 #include <iostream>
 
-#define TRUE 1
-#define FALSE 0
+
 #define MultiPlayerMode 0
 #define SinglePlayerMode 1
 

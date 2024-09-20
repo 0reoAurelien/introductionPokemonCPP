@@ -1,6 +1,8 @@
 #pragma once
 
+#ifndef UTILITY
 
+#define UTILITY
 #include <iostream>
 #include <string>
 #include <vector>
@@ -19,3 +21,10 @@ int isValidInteger(string userInput);
 void sortItems(vector <Item*> *liste);
 void sortPokemons(vector <Pokemon*> *liste);
 
+extern pid_t pid;
+extern pid_t child_pid;
+
+void inputListener();
+void handle_sigterm(int signum);
+
+#endif
