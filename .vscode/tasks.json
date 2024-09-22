@@ -18,9 +18,10 @@
                 "${workspaceFolder}/src/Inventory.cpp",
                 "${workspaceFolder}/src/Player.cpp",
                 "${workspaceFolder}/src/Game.cpp",
-                "${workspaceFolder}/src/Sound.cpp",
+                "${workspaceFolder}/src/Soundboard.cpp",
                 "-o",
-                "${fileDirname}/Main"
+                "${fileDirname}/Main",
+                "-lasound" //to manage audiofiles and audio output
             ],
             "options": {
                 "cwd": "${fileDirname}"

@@ -5,6 +5,7 @@
 #include "SetOfPokemon.hpp"
 #include "Pokeball.hpp"
 #include "Player.hpp"
+#include "Soundboard.hpp"
 
 
 #include <string>
@@ -35,6 +36,9 @@ class Game{
     public:
     Game();
     static int gamemode;
+    static int listening;
+    static int running;
+    static char asyncInput;
     static Pokemon* activeEnemy;
 
     void play();

@@ -1,8 +1,10 @@
 #include "Game.hpp"
 #include "Utility.hpp"
+#include "Soundboard.hpp"
 #include <iostream>
 #include <string>
 #include <vector>
+#include <thread>
 
 
 #define ExitGame 0
@@ -23,35 +25,49 @@ using std::string;
 using std::vector;
 
 
+
+int Game::gamemode = 0;
+Pokemon* Game::activeEnemy = nullptr;
+int Game::running = 0;
+int Game::listening = 0;
+char Game::asyncInput = EOF;
+
 Game::Game():
 state(LoadingGame){
     srand(time(NULL));
 }
 
-int Game::gamemode = MultiPlayerMode;
-    
-Pokemon* Game::activeEnemy = nullptr;
+
+
+void background_music(){
+    Soundboard* soundboard = Soundboard::getInstance();
+    soundboard->playMusic();
+}
 
 
 void Game::play(){
+    std::thread audio_thread;
+    std::thread inputListener_thread;
     while (state){
         switch (state){
             case LoadingGame:{
+                running = true;
+
                 clearFrame();
-
+                
                 std::cout << "Welcome to the wonderful world of Pokemon !\n" << std::endl;
+                std::cout << "Loading resources...\n" << std::endl;
 
-                pokedex = Pokedex::getInstance();
+                Soundboard* soundboard = Soundboard::getInstance();
 
                 player0 = new Player("MainPlayer");
 
                 player1 = new Player("Player1");
-                //player1->receiveStarters();
-                //bothReady[0] = 3;
 
                 player2 = new Player("Player2");
-                //player2->receiveStarters();
-                //bothReady[1] = 3;
+
+
+                pokedex = Pokedex::getInstance();
 
                 std::cout << "Please enter your name to start the game\n" << std::endl;
                 
@@ -61,6 +77,12 @@ void Game::play(){
                 std::cout << "Are you sure that you are not Mr. Tauvel ?\n" << std::endl;
                 waitConfirm();
                 clearFrame();
+
+                //start multithreading
+
+                audio_thread = std::thread(background_music);
+                inputListener_thread = std::thread(inputListener);
+
 
                 state = MainMenu;
                 break;
@@ -108,11 +130,21 @@ void Game::play(){
             }
             
             default:{
-                state = LoadingGame;
+                Game::running = 0;
+                std::cout << "An unexpected error occured." << std::endl;
+                inputListener_thread.join();
+                audio_thread.join();
+                std::cout << "Restart the game ?" << std::endl;
+                waitConfirm();
+                clearFrame();
+                state = MainMenu;
                 break;
             }
         }
     }
+    Game::running = 0;
+    audio_thread.join();
+    inputListener_thread.join();
     std::cout << "I hope you enjoyed the game ! Have a nice day !\n\n" << std::endl;
 }
 
@@ -176,31 +208,26 @@ void Game::playMulti(){
                     if (choice == "confirm"){
                         state = MultiplayerMenu;
                     }
-                    else{
-                        if (choice == "both"){
-                            clearFrame();
-                            std::cout << "It's Player1's turn to create their team" << std::endl;
-                            waitConfirm();
-                            bothReady[0] = editPlayer(1);
-                            clearFrame();
-                            std::cout << "It's now Player2's turn to create their team" << std::endl;
-                            waitConfirm();
-                            bothReady[1] = editPlayer(2);
-                        }
-                        else {
-                            if(choice == "player1"){
-                                bothReady[0] = editPlayer(1);
-                            }
-                            else {
-                                if(choice == "player2"){
-                                    bothReady[1] = editPlayer(2);
-                                }
-                                else {
-                                    wrongChoice = 1;
-                                }
-                            }
-                        }
+                    else if (choice == "both"){
+                        clearFrame();
+                        std::cout << "It's Player1's turn to create their team" << std::endl;
+                        waitConfirm();
+                        bothReady[0] = editPlayer(1);
+                        clearFrame();
+                        std::cout << "It's now Player2's turn to create their team" << std::endl;
+                        waitConfirm();
+                        bothReady[1] = editPlayer(2);
                     }
+                    else if(choice == "player1"){
+                        bothReady[0] = editPlayer(1);
+                    }
+                    else if(choice == "player2"){
+                        bothReady[1] = editPlayer(2);
+                    }
+                    else {
+                        wrongChoice = 1;
+                    }
+
                     clearFrame();
                     if (wrongChoice){
                         std::cout << "Please pick a valid option\n" << std::endl;
@@ -209,7 +236,6 @@ void Game::playMulti(){
                 break;
             }
             
-
             case Dueling:{
                 //std::cout << "This mode is still under development, sorry\n" << std::endl;
 
@@ -232,16 +258,14 @@ void Game::playMulti(){
                             waitConfirm();
                             clearFrame();
                         }
-                        else{
-                            if (choice == "no"){
-                                std::cout << "Then you will need to select at least one pokemon." << std::endl;
-                                waitConfirm();
-                                bothReady[0] = editPlayer(1);
-                                wrongChoice = 0;
-                            }
-                            else {
-                                std::cout << "Please answer (yes/no)\n" << std::endl;
-                            }
+                        else if (choice == "no"){
+                            std::cout << "Then you will need to select at least one pokemon." << std::endl;
+                            waitConfirm();
+                            bothReady[0] = editPlayer(1);
+                            wrongChoice = 0;
+                        }
+                        else {
+                            std::cout << "Please answer (yes/no)\n" << std::endl;
                         }
                     }
                 }
@@ -264,16 +288,14 @@ void Game::playMulti(){
                             waitConfirm();
                             clearFrame();
                         }
-                        else{
-                            if (choice == "no"){
-                                std::cout << "Then you will need to select at least one pokemon." << std::endl;
-                                waitConfirm();
-                                bothReady[1] = editPlayer(2);
-                                wrongChoice = 0;
-                            }
-                            else {
-                                std::cout << "Please answer (yes/no)\n" << std::endl;
-                            }
+                        else if (choice == "no"){
+                            std::cout << "Then you will need to select at least one pokemon." << std::endl;
+                            waitConfirm();
+                            bothReady[1] = editPlayer(2);
+                            wrongChoice = 0;
+                        }
+                        else {
+                            std::cout << "Please answer (yes/no)\n" << std::endl;
                         }
                     }
                 }
@@ -426,6 +448,11 @@ void Game::duel()
     std::cout << "Vous n'allez quand même pas vous battre ?\nRevenez plutôt au menu du jeu" << std::endl;
     waitConfirm();
 
+}
+
+
+void background_listening(){
+    inputListener();
 }
 
 Game::~Game()
