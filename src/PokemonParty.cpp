@@ -189,6 +189,15 @@ void PokemonParty::addPokemon(Pokemon* pokemon){
     arrayOfPokemon.push_back(pokemon);
 }
 
+void PokemonParty::empty()
+{
+    for (Pokemon* deadPokemons : arrayOfPokemon){
+        Pokemon* p_copy;
+        arrayOfPokemon.erase(arrayOfPokemon.begin());
+        delete p_copy;
+    }
+}
+
 PokemonParty::~PokemonParty(){
     std::cout << "Closing your pokemon party..." << std::endl;
     for (Pokemon* pokemon : arrayOfPokemon){

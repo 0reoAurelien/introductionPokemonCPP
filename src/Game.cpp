@@ -238,7 +238,8 @@ void Game::playMulti(){
             
             case Dueling:{
                 //std::cout << "This mode is still under development, sorry\n" << std::endl;
-
+                bothReady[0] = player1->pokemonParty->getArraySize();
+                bothReady[1] = player2->pokemonParty->getArraySize();
                 while (bothReady[0]==0){
                     clearFrame();
 
@@ -448,6 +449,10 @@ void Game::duel()
         if (p1 == nullptr){
             if (party1->getArraySize() == 0){
                 duelContinue = false;
+                if (p2 == nullptr){
+                    break;
+                }
+                player2->addPokeToParty(p2, MultiPlayerMode);
                 winner = 2;
                 break;
             }
@@ -458,13 +463,17 @@ void Game::duel()
                 std::cout << player1->getUsername() << ", please select your pokemon.\n" << std::endl;
                 party1->displayList();
                 std::cin >> choice;
-                p1 = player1->pokemonParty->getPokemonByName(choice);
+                p1 = party1->getPokemonByName(choice);
             }
         }
 
         if (p2 == nullptr){
             if (party2->getArraySize() == 0){
                 duelContinue = false;
+                if (p1 == nullptr){
+                    break;
+                }
+                player1->addPokeToParty(p1, MultiPlayerMode);
                 winner = 1;
                 break;
             }
@@ -475,7 +484,7 @@ void Game::duel()
                 std::cout << player2->getUsername() << ", please select your pokemon.\n" << std::endl;
                 party2->displayList();
                 std::cin >> choice;
-                p2 = player2->pokemonParty->getPokemonByName(choice);
+                p2 = party2->getPokemonByName(choice);
             }
         }
 
@@ -513,13 +522,7 @@ void Game::duel()
             }
         }
     }
-    //This is the way
-    player1->addPokeToParty(p1, MultiPlayerMode);
-    player2->addPokeToParty(p2, MultiPlayerMode);
-    delete player1->dyingPokemons;
-    delete player2->dyingPokemons;
-    clearFrame();
-    //RIP
+
     if (winner == 1){
         std::cout << player1->getUsername() << " won the duel !\n" << std::endl;
         waitConfirm();
@@ -528,10 +531,9 @@ void Game::duel()
             std::cout << player2->getUsername() << " managed to take out the following pokemons:\n" << std::endl;
             player1->dyingPokemons->displayList();
             waitConfirm();
-            clearFrame();
         }
     }
-    else{
+    else if (winner == 2){
         std::cout << player2->getUsername() << " won the duel !\n" << std::endl;
         waitConfirm();
         if (player2->dyingPokemons->getArraySize()){
@@ -539,9 +541,21 @@ void Game::duel()
             std::cout << player1->getUsername() << " managed to take out the following pokemons:\n" << std::endl;
             player2->dyingPokemons->displayList();
             waitConfirm();
-            clearFrame();
         }
     }
+    else {
+        std::cout << "It's a tie !" << std::endl;
+        std::cout << "You have both let all your precious pokemons die !\n" << std::endl;
+        waitConfirm();
+    }
+    
+    /*
+    player1->dyingPokemons->empty();
+    player2->dyingPokemons->empty();
+    //RIP
+    */
+    
+    clearFrame();
 }
 
 
