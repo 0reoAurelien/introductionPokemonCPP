@@ -53,7 +53,7 @@ void Soundboard::playMusic()
     snd_pcm_hw_params_t* params;
     unsigned int sample_rate = 44100;
     int dir;
-    snd_pcm_uframes_t frames = 512;
+    snd_pcm_uframes_t frames = 1024;
 
     if (snd_pcm_open(&pcm_handle, "default", SND_PCM_STREAM_PLAYBACK, 0) < 0) {
         std::cerr << "Error accessing audio peripherals" << std::endl;
@@ -81,7 +81,7 @@ void Soundboard::playMusic()
         changeTrack();
     }
 
-    snd_pcm_drain(pcm_handle);
+    snd_pcm_drop(pcm_handle);
     snd_pcm_close(pcm_handle);
 }
 
@@ -99,34 +99,15 @@ void Soundboard::playTrack(int sel, snd_pcm_t* pcm_handle, snd_pcm_uframes_t fra
         //play the soundtrack
         snd_pcm_uframes_t bufferSize = frames*4;
         char* data = new char[bufferSize];
-        while ((Game::running)&&(Game::asyncInput != 'n')&&(audiofile.read(data, bufferSize))) {
+
+        bool condition = ((Game::running)&&(Game::asyncInput != 'n')&&(audiofile.read(data, bufferSize)));
+        
+        while (condition) {
             if (snd_pcm_writei(pcm_handle, data, frames) == -EPIPE) {
                 snd_pcm_prepare(pcm_handle);
             }
+            condition = ((Game::running)&&(Game::asyncInput != 'n')&&(audiofile.read(data, bufferSize)));
         }
-
-
-/*
-        //play the soundtrack
-        int count = 1024;
-        int notOver = 1;
-        snd_pcm_uframes_t bufferSize = frames*4*count;
-        char* data = new char[bufferSize];
-        
-        char* runningPtr = data;
-        while ((Game::running)&&(Game::asyncInput != 'n')&&(notOver)) {
-            if (count == 0){
-                notOver = (audiofile.read(data, bufferSize))?1:0 ;
-                runningPtr = data;
-                count = 1024;
-            }
-            if (snd_pcm_writei(pcm_handle, runningPtr, frames) == -EPIPE) {
-                snd_pcm_prepare(pcm_handle);
-            }
-            runningPtr += 4*frames;
-            count--;
-        }
-*/
 
         delete[] data;
         audiofile.close();
