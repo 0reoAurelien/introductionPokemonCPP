@@ -40,7 +40,9 @@ void SetOfPokemon::displayListDetails(){
 Pokemon* SetOfPokemon::firstPokemon()
 {
     if (getArraySize()){
-        return arrayOfPokemon.at(0);
+        Pokemon* p_out = arrayOfPokemon.at(0);
+        arrayOfPokemon.erase(arrayOfPokemon.begin());
+        return p_out;
     }
     return nullptr;
 }

@@ -74,6 +74,7 @@ void Soundboard::playMusic()
     }
     snd_pcm_hw_params_free(params);
 
+    changeTrack(); //Hearing the same intro over and over again was driving me crazy
 
     //let the music play
     while (Game::running){
