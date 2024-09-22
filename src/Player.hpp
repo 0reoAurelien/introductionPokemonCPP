@@ -19,7 +19,7 @@ public :
     void addPokeToParty(Pokemon* pokeToAdd, int gamemode);
     void receiveStarters();
     void removePokeFromParty(Pokemon* pokeToRemove);
-    Pokemon* activePokemon;
+    Pokemon* activePokemon();
     PokemonParty* dyingPokemons;
     Pokeball* pokeball;
     Inventory* inventory;

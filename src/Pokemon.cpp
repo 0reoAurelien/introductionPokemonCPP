@@ -84,30 +84,33 @@ void Pokemon::setSpeed(int newSpeed){
 }
 
 
-void Pokemon::dealDmg(Pokemon &anotherPokemon){
+void Pokemon::dealDmg(Pokemon * anotherPokemon){
     if (getHP() == 0){
-        std::cout << name << " couldn't move because he is fucking dead !\n" << std::endl;
+        std::cout << name << " cannot move because he is fucking dead !\n" << std::endl;
     }
     else{
-        if (anotherPokemon.getHP() == 0) {
-            std::cout << name << ", stop " << " ! " << anotherPokemon.name << " is already dead !\n" << "\n" << std::endl;
+        if (anotherPokemon->getHP() == 0) {
+            std::cout << name << ", stop ! " << anotherPokemon->name << " is already dead !\n" << "\n" << std::endl;
         }
         else {
-            int damage = 10 + getATK() - anotherPokemon.getDEF();
+            int damage = 10 + getATK() - anotherPokemon->getDEF();
             if (damage > 0){
-                anotherPokemon.setHP(anotherPokemon.getHP() - damage);
-                std::cout << name << " attacked and inflicted " << damage << " damages to " << anotherPokemon.name << "\n" << std::endl;
-                if (anotherPokemon.getHP() < 1) {
-                    anotherPokemon.setHP(0);
-                    std::cout << anotherPokemon.name << " didn't faint, he fucking died !\n" << std::endl;
+                anotherPokemon->setHP(anotherPokemon->getHP() - damage);
+                std::cout << name << " attacked and inflicted " << damage << " damages to " << anotherPokemon->getName() << "\n" << std::endl;
+                if (anotherPokemon->getHP() < 1) {
+                    anotherPokemon->setHP(0);
+                    std::cout << anotherPokemon->getName() << " didn't faint, he fucking died !\n" << std::endl;
                     // delete &anotherPokemon;
                     // deal with the next moves of this pokemon before deleting the instance
                     // for example, wait for an end of turn
                     // A "try and catch" exception doesn't suit this situation
                 }
                 else {
-                    std::cout << anotherPokemon.name << " has " << anotherPokemon.hitpoint << " HP left.\n" << std::endl;
+                    std::cout << anotherPokemon->getName() << " has " << anotherPokemon->getHP() << " HP left.\n" << std::endl;
                 }
+            }
+            else {
+                std::cout << getName() << " couldn't deal any damage to " << anotherPokemon->getName() << ".\n\n" << std::endl;
             }
         }
     }
@@ -124,6 +127,7 @@ void Pokemon::displayInfo(){
     std::cout << "HP: " << getHP() << std::endl;
     std::cout << "Attack: " << getATK() << std::endl;
     std::cout << "Defense: " << getDEF() << std::endl;
+    std::cout << "Speed: " << getSPEED() << std::endl;
     std::cout << "Generation: " << gen << std::endl;
 
     if (legendary){std::cout << "This is a legendary pokemon !" << std::endl;}

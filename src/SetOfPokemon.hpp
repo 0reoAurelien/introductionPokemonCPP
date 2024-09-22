@@ -16,7 +16,9 @@ public:
     virtual Pokemon* getPokemonById(int id, int removeFromList) = 0;
     virtual string getTitle() = 0;
     
+    int getArraySize();
     void displayList();
     void displayListDetails();
+    Pokemon* firstPokemon();
 
 };

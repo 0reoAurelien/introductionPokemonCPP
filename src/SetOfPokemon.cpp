@@ -37,3 +37,16 @@ void SetOfPokemon::displayListDetails(){
 
 }
 
+Pokemon* SetOfPokemon::firstPokemon()
+{
+    if (getArraySize()){
+        return arrayOfPokemon.at(0);
+    }
+    return nullptr;
+}
+
+
+int SetOfPokemon::getArraySize()
+{
+    return arrayOfPokemon.size();
+}

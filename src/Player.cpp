@@ -11,7 +11,6 @@ Player::Player(const string &name): username(name)
 
     pokemonParty = new PokemonParty();
     dyingPokemons = new PokemonParty();
-    activePokemon = nullptr;
     badges = 0;
     playerLevel=0;
 }
@@ -29,7 +28,7 @@ string Player::getUsername() const
 void Player::addPokeToParty(Pokemon *pokeToAdd, int gamemode)
 {
     pokemonParty->addPokemon(pokeToAdd);
-    if (pokemonParty->getPartySize() > 6){
+    if (pokemonParty->getArraySize() > 6){
 
         Pokemon* pokeToRemove = nullptr;
         string targetName = "";
@@ -89,6 +88,10 @@ vector <int> Player::useItem(Item *item)
     }
 
     return inventory->useItem(item, pokemon);
+}
+
+Pokemon* Player::activePokemon(){
+    return pokemonParty->firstPokemon();
 }
 
 

@@ -337,7 +337,7 @@ int Game::editPlayer(int sel)
 
         clearFrame();
 
-        count = player1->pokemonParty->getPartySize();
+        count = player1->pokemonParty->getArraySize();
         if (count){
             std::cout << "Your current team is :" << std::endl;
             player1->pokemonParty->displayList();
@@ -364,7 +364,7 @@ int Game::editPlayer(int sel)
                 }
             }
 
-            count = player1->pokemonParty->getPartySize();
+            count = player1->pokemonParty->getArraySize();
 
             if (count){
                 std::cout << "Your current team is :" << std::endl;
@@ -375,7 +375,7 @@ int Game::editPlayer(int sel)
                 std::cout << "Your current team is empty." << std::endl;
             }
         }
-        count = player1->pokemonParty->getPartySize();
+        count = player1->pokemonParty->getArraySize();
     }
 
 
@@ -387,7 +387,7 @@ int Game::editPlayer(int sel)
 
         clearFrame();
 
-        count = player2->pokemonParty->getPartySize();
+        count = player2->pokemonParty->getArraySize();
         if (count){
             std::cout << "Your current team is :" << std::endl;
             player2->pokemonParty->displayList();
@@ -414,7 +414,7 @@ int Game::editPlayer(int sel)
                 }
             }
 
-            count = player2->pokemonParty->getPartySize();
+            count = player2->pokemonParty->getArraySize();
 
             if (count){
                 std::cout << "Your current team is :" << std::endl;
@@ -424,7 +424,7 @@ int Game::editPlayer(int sel)
                 std::cout << "Your current team is empty.\n\n" << std::endl;
             }
         }
-        count = player2->pokemonParty->getPartySize();
+        count = player2->pokemonParty->getArraySize();
     }
     state = TeamSelection;
     return count;
@@ -432,22 +432,92 @@ int Game::editPlayer(int sel)
 
 void Game::duel()
 {
-    std::cout << "Here is the team of " << player1->getUsername() << " :" << std::endl;
-    player1->pokemonParty->displayListDetails();
-    waitConfirm();
-    clearFrame();
-    std::cout << "And here is the team of " << player2->getUsername() << " :" << std::endl;
-    player2->pokemonParty->displayListDetails();
-    waitConfirm();
-    clearFrame();
+    bool duelContinue = true;
+    int winner = 0;
 
-    std::cout << "Vous savez, moi je pense que la violence ne résout rien" << std::endl;
-    waitConfirm();
-    std::cout << "Et puis comme on dit toujours, l'important c'est de participer" << std::endl;
-    waitConfirm();
-    std::cout << "Vous n'allez quand même pas vous battre ?\nRevenez plutôt au menu du jeu" << std::endl;
-    waitConfirm();
+    PokemonParty* party1 = player1->pokemonParty;
+    Pokemon* p1 = nullptr;
+    PokemonParty* party2 = player2->pokemonParty;
+    Pokemon* p2 = nullptr;
 
+    string choice = "";
+
+    while (duelContinue){
+
+        if (p1 == nullptr){
+            if (party1->getArraySize() == 0){
+                duelContinue = false;
+                winner = 2;
+                break;
+            }
+            else if (party1->getArraySize() == 1){
+                p1 = player1->activePokemon();
+            }
+            else{
+                std::cout << player1->getUsername() << ", please select your pokemon.\n" << std::endl;
+                party1->displayList();
+                std::cin >> choice;
+                p1 = player1->pokemonParty->getPokemonByName(choice);
+            }
+        }
+
+        if (p2 == nullptr){
+            if (party2->getArraySize() == 0){
+                duelContinue = false;
+                winner = 1;
+                break;
+            }
+            else if (party2->getArraySize() == 1){
+                p2 = player2->activePokemon();
+            }
+            else{
+                std::cout << player2->getUsername() << ", please select your pokemon.\n" << std::endl;
+                party2->displayList();
+                std::cin >> choice;
+                p2 = player2->pokemonParty->getPokemonByName(choice);
+            }
+        }
+
+        clearFrame();
+        std::cout << player1->getUsername() << "sent a " << p1->getName() << " !\n" << std::endl;
+        p1->displayInfo();
+
+        std::cout << player2->getUsername() << "sent a " << p2->getName() << " !\n" << std::endl;
+        p2->displayInfo();
+
+        waitConfirm();
+        clearFrame();
+
+        while ((p1 != nullptr)&&(p2 != nullptr)){
+
+            if (p1->getSPEED() > p2->getSPEED()){
+                p1->dealDmg(p2);
+                p2->dealDmg(p1);
+            }
+            else {
+                p2->dealDmg(p1);
+                p1->dealDmg(p2);
+            }
+            waitConfirm();
+            clearFrame();
+
+            if (p1->getHP() == 0){
+                player1->dyingPokemons->addPokemon(p1);
+                //std::cout << p1->getName() << "faited.\n\n" << std::endl;
+                p1 = nullptr;
+
+            }
+            if (p2->getHP() == 0){
+                player2->dyingPokemons->addPokemon(p1);
+                //std::cout << p2->getName() << "faited.\n\n" << std::endl;
+                p2 = nullptr;
+            }
+        }
+    }
+    //This is the way
+    delete player1->dyingPokemons;
+    delete player2->dyingPokemons;
+    //RIP
 }
 
 

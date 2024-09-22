@@ -40,7 +40,7 @@ class Pokemon{
     void setATK(int newATK);
     void setDEF(int newDEF);
     void setSpeed(int newSpeed);
-    void dealDmg(Pokemon &anotherPokemon);
+    void dealDmg(Pokemon * anotherPokemon);
     void displayName();
     void displayInfo();
     int capture(int catchRate);

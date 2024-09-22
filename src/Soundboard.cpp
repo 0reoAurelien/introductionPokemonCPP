@@ -108,6 +108,9 @@ void Soundboard::playTrack(int sel, snd_pcm_t* pcm_handle, snd_pcm_uframes_t fra
             }
             condition = ((Game::running)&&(Game::asyncInput != 'n')&&(audiofile.read(data, bufferSize)));
         }
+        if (Game::asyncInput == 'n'){
+            Game::asyncInput = EOF;
+        }
 
         delete[] data;
         audiofile.close();
