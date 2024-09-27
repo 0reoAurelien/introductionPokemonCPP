@@ -9,8 +9,8 @@ Player::Player(const string &name): username(name)
     Pokedex* pokedex = Pokedex::getInstance();
     vector <Pokemon*> pokemonList = {};
 
-    pokemonParty = new PokemonParty();
-    dyingPokemons = new PokemonParty();
+    pokemonParty = new PokemonParty(true);
+    graveyard = new PokemonParty(false);
     badges = 0;
     playerLevel=0;
 }
@@ -50,6 +50,11 @@ void Player::addPokeToParty(Pokemon *pokeToAdd, int gamemode)
             delete pokeToRemove; // to not this instance live forever
         }
     }
+}
+
+void Player::addPokeToGraveyard(Pokemon *pokeToAdd, int gamemode)
+{
+    graveyard->addPokemon(pokeToAdd);
 }
 
 void Player::receiveStarters()
@@ -101,5 +106,5 @@ Player::~Player()
     //delete pokeball; //it won't work as they aren't itialized
     //delete inventory; //same, I guess
     //Ill add them inside the constructor first
-    delete dyingPokemons;
+    delete graveyard;
 }

@@ -17,10 +17,11 @@ public :
     string getUsername() const;
     PokemonParty* pokemonParty;
     void addPokeToParty(Pokemon* pokeToAdd, int gamemode);
+    void addPokeToGraveyard(Pokemon* pokeToAdd, int gamemode);
     void receiveStarters();
     void removePokeFromParty(Pokemon* pokeToRemove);
     Pokemon* activePokemon();
-    PokemonParty* dyingPokemons;
+    PokemonParty* graveyard;
     Pokeball* pokeball;
     Inventory* inventory;
     int badges;

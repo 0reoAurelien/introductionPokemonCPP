@@ -145,7 +145,6 @@ void Game::play(){
     Game::running = 0;
     audio_thread.join();
     inputListener_thread.join();
-    std::cout << "I hope you enjoyed the game ! Have a nice day !\n\n" << std::endl;
 }
 
 
@@ -460,11 +459,15 @@ void Game::duel()
                 p1 = player1->activePokemon();
             }
             else{
-                std::cout << player1->getUsername() << ", please select your pokemon.\n" << std::endl;
-                party1->displayList();
-                std::cin >> choice;
-                p1 = party1->getPokemonByName(choice);
+                while(p1 == nullptr){
+                    std::cout << player1->getUsername() << ", please select your pokemon.\n" << std::endl;
+                    party1->displayList();
+                    std::cin >> choice;
+                    clearFrame();
+                    p1 = party1->getPokemonByName(choice);
+                }
             }
+            clearFrame();
         }
 
         if (p2 == nullptr){
@@ -481,14 +484,16 @@ void Game::duel()
                 p2 = player2->activePokemon();
             }
             else{
-                std::cout << player2->getUsername() << ", please select your pokemon.\n" << std::endl;
-                party2->displayList();
-                std::cin >> choice;
-                p2 = party2->getPokemonByName(choice);
+                while(p2 == nullptr){
+                    std::cout << player2->getUsername() << ", please select your pokemon.\n" << std::endl;
+                    party2->displayList();
+                    std::cin >> choice;
+                    p2 = party2->getPokemonByName(choice);
+                }
             }
+            clearFrame();
         }
 
-        clearFrame();
         std::cout << player1->getUsername() << " sent a " << p1->getName() << " !\n" << std::endl;
         p1->displayInfo();
 
@@ -512,12 +517,12 @@ void Game::duel()
             clearFrame();
 
             if (p1->getHP() == 0){
-                player1->dyingPokemons->addPokemon(p1);
+                player1->addPokeToGraveyard(p1, MultiPlayerMode);
                 p1 = nullptr;
 
             }
             if (p2->getHP() == 0){
-                player2->dyingPokemons->addPokemon(p1);
+                player2->addPokeToGraveyard(p2, MultiPlayerMode);
                 p2 = nullptr;
             }
         }
@@ -526,20 +531,20 @@ void Game::duel()
     if (winner == 1){
         std::cout << player1->getUsername() << " won the duel !\n" << std::endl;
         waitConfirm();
-        if (player1->dyingPokemons->getArraySize()){
+        if (player1->graveyard->getArraySize()){
             std::cout << "But at what cost..." << std::endl;
             std::cout << player2->getUsername() << " managed to take out the following pokemons:\n" << std::endl;
-            player1->dyingPokemons->displayList();
+            player1->graveyard->displayList();
             waitConfirm();
         }
     }
     else if (winner == 2){
         std::cout << player2->getUsername() << " won the duel !\n" << std::endl;
         waitConfirm();
-        if (player2->dyingPokemons->getArraySize()){
+        if (player2->graveyard->getArraySize()){
             std::cout << "But at what cost..." << std::endl;
             std::cout << player1->getUsername() << " managed to take out the following pokemons:\n" << std::endl;
-            player2->dyingPokemons->displayList();
+            player2->graveyard->displayList();
             waitConfirm();
         }
     }
@@ -549,11 +554,10 @@ void Game::duel()
         waitConfirm();
     }
     
-    /*
-    player1->dyingPokemons->empty();
-    player2->dyingPokemons->empty();
+    
+    player1->graveyard->empty();
+    player2->graveyard->empty();
     //RIP
-    */
     
     clearFrame();
 }
@@ -569,4 +573,5 @@ Game::~Game()
     delete player1;
     delete player2;
     delete pokedex;
+    std::cout << "\nI hope you enjoyed the game ! Have a nice day !\n\n" << std::endl;
 }

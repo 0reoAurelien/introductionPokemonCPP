@@ -93,7 +93,7 @@ void Pokemon::dealDmg(Pokemon * anotherPokemon){
             std::cout << name << ", stop ! " << anotherPokemon->name << " is already dead !\n" << "\n" << std::endl;
         }
         else {
-            int damage = 10 + getATK() - anotherPokemon->getDEF();
+            int damage = 3 + (getATK() + getDEF() - anotherPokemon->getDEF())/3;
             if (damage > 0){
                 anotherPokemon->setHP(anotherPokemon->getHP() - damage);
                 std::cout << name << " attacked and inflicted " << damage << " damages to " << anotherPokemon->getName() << "\n" << std::endl;

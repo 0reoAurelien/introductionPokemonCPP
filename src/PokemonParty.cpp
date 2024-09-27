@@ -14,9 +14,8 @@ using std::string;
 
 Pokeball* linkedPokeball = nullptr;
 
-PokemonParty::PokemonParty()
-{
-}
+PokemonParty::PokemonParty(bool areAlive):
+alive(areAlive){}
 
 PokemonParty::PokemonParty(vector <Pokemon*> pokemonList)
 {
@@ -35,7 +34,10 @@ PokemonParty::PokemonParty(vector <Pokemon*> pokemonList)
 }
 
 string PokemonParty::getTitle(){
-    return "CURRENT TEAM";
+    if (alive){
+        return "CURRENT TEAM";
+    }
+    return "DEAD POKEMONS";
 }
 
 Pokemon *PokemonParty::getPokemonById(int id, int removeFromList){
@@ -189,19 +191,20 @@ void PokemonParty::addPokemon(Pokemon* pokemon){
     arrayOfPokemon.push_back(pokemon);
 }
 
-void PokemonParty::empty()
-{
-    for (Pokemon* deadPokemons : arrayOfPokemon){
-        Pokemon* p_copy;
+void PokemonParty::empty(){
+    Pokemon* p_copy;
+    int index = 0;
+    while (arrayOfPokemon.size()){
+        p_copy = arrayOfPokemon.at(0);
         arrayOfPokemon.erase(arrayOfPokemon.begin());
         delete p_copy;
     }
 }
 
 PokemonParty::~PokemonParty(){
-    std::cout << "Closing your pokemon party..." << std::endl;
+    std::cout << "Closing " << stringTolower(getTitle()) <<  "..." << std::endl;
     for (Pokemon* pokemon : arrayOfPokemon){
         delete pokemon;
     }
-    std::cout << "Pokemon party successfully closed !" << std::endl;
+    std::cout << "Successfully closed !" << std::endl;
 }
